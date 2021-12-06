@@ -10,12 +10,68 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_192313) do
+ActiveRecord::Schema.define(version: 2021_12_06_182004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "text", null: false
+    t.bigint "note_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["note_id"], name: "index_comments_on_note_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "note_tags", force: :cascade do |t|
+    t.bigint "note_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["note_id"], name: "index_note_tags_on_note_id"
+    t.index ["tag_id"], name: "index_note_tags_on_tag_id"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.date "dream_date", null: false
+    t.string "interval", null: false
+    t.string "title", default: "Untitled"
+    t.string "description", null: false
+    t.bigint "category_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_notes_on_category_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "text", null: false
+    t.bigint "comment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["comment_id"], name: "index_replies_on_comment_id"
+    t.index ["user_id"], name: "index_replies_on_user_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
+    t.boolean "blocked", default: false
+    t.integer "role", default: 0
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -28,4 +84,12 @@ ActiveRecord::Schema.define(version: 2021_12_02_192313) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "notes"
+  add_foreign_key "comments", "users"
+  add_foreign_key "note_tags", "notes"
+  add_foreign_key "note_tags", "tags"
+  add_foreign_key "notes", "categories"
+  add_foreign_key "notes", "users"
+  add_foreign_key "replies", "comments"
+  add_foreign_key "replies", "users"
 end
