@@ -1,19 +1,23 @@
 <div>Welcome to Sweet Dreams</div>
 
-<div>
-  You can:
+<% if current_user %>
   <div>
-    See all
-    <%= link_to 'users', users_path %>
-  </div>
+    You can:
+    <div>
+      See all
+      <%= link_to 'users', users_path %>
+    </div>
 
-  <div>
-    See all
-    <%= link_to 'dreams', dreams_path %>
-  </div>
+    <div>
+      See all
+      <%= link_to 'dreams', dreams_path %>
+    </div>
 
-  <div>
-    See all
-    <%= link_to 'categories', categories_path %>
+    <div>
+      See all
+      <%= link_to 'categories', categories_path %>
+    </div>
   </div>
-</div>
+<% else %>
+  Please <%= link_to 'Login', new_user_session_path %>
+<% end %>

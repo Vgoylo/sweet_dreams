@@ -1,7 +1,7 @@
-all users
-
-<% @users.each do |user| %>
-  <div>
-    <%= user.email %>
-  </div>
+<% if current_user %>
+  <% @users.each do |user| %>
+    <div>
+      <%= user.email %>
+    </div>
+  <% end %>
  <% end %>

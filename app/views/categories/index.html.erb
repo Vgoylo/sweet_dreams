@@ -1,7 +1,7 @@
-all categories
-
-<% @categories.each do |category| %>
-  <div>
-    <%= category.name %>
-  </div>
+<% if current_user %>
+  <% @categories.each do |category| %>
+    <div>
+      <%= category.name %>
+    </div>
+  <% end %>
  <% end %>

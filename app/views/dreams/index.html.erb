@@ -1,7 +1,7 @@
-all dreams
-
-<% @dreams.each do |dream| %>
-  <div>
-    <%= dream.title %>
-  </div>
+<% if current_user %>
+  <% @dreams.each do |dream| %>
+    <div>
+      <%= dream.title %>
+    </div>
+  <% end %>
  <% end %>
