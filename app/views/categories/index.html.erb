@@ -1,7 +1,22 @@
 <% if current_user %>
-  <% @categories.each do |category| %>
-    <div>
-      <%= category.name %>
-    </div>
-  <% end %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Destroy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @categories.each_with_index do |category, index| %>
+        <tr>
+          <th scope="row"><%= index + 1 %></th>
+          <td><%= link_to category.name, category_path(category) %></td>
+          <td><%= link_to 'Edit', edit_category_path(category) %></td>
+          <td><%= link_to 'Destroy', category_path(category), method: :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
  <% end %>
