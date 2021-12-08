@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :notes
+  has_many :dreams
   has_many :comments
   has_many :replies
 end
