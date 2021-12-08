@@ -1,15 +1,4 @@
 <% if current_user %>
-  <% @users.each do |user| %>
-    <div>
-      <%= link_to user.email, user_path(user) %>
-    </div>
-  <% end %>
- <% end %>
-
-
-
-
- <% if current_user %>
   <table class="table">
     <thead>
       <tr>
@@ -20,13 +9,15 @@
       </tr>
     </thead>
     <tbody>
-      <% @dreams.each_with_index do |dream, index| %>
-        <tr>
-          <th scope="row"><%= index + 1 %></th>
-          <td><%= link_to dream.title, user_path(user) %></td>
-          <td><%= link_to 'Edit', edit_user_path(user) %></td>
-          <td><%= link_to 'Destroy', dream_path(dream), method: :delete %></td>
-        </tr>
+      <% @users.each_with_index do |user, index| %>
+        <div>
+          <tr>
+            <th scope="row"><%= index + 1 %></th>
+            <%= link_to user.email, user_path(user) %></td>
+            <td><%= link_to 'Edit', edit_user_path(user) %></td>
+            <td><%= link_to 'Destroy', user_path(user), method: :delete %></td>
+          </tr>
+        </div>
       <% end %>
     </tbody>
   </table>
