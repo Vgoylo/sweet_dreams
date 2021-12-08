@@ -9,13 +9,12 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-
   end
 
   def update
     @user = User.find(params[:id])
 
-    if @dreams.update(dream_params)
+    if @user.update(user_params)
       flash[:success] = 'Success'
       redirect_to users_path
     else
@@ -27,7 +26,6 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
 
-
     if @dream.destroy
       flash[:success] = 'Success'
       redirect_to users_path
@@ -38,7 +36,7 @@ class UsersController < ApplicationController
 
   private
 
-  def catigory_params
+  def user_params
     params.require(:user).permit(:name)
   end
 end
