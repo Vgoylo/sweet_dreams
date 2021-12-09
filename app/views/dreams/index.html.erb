@@ -9,6 +9,7 @@
         <th scope="col">Description</th>
         <th scope="col">Edit</th>
         <th scope="col">Destroy</th>
+        <th scope="col">Public</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
           <td><%= dream.description %></td>
           <td><%= link_to 'Edit', edit_dream_path(dream) %></td>
           <td><%= link_to 'Destroy', dream_path(dream), method: :delete %></td>
+          <td><%= dream.private ? '❌' : '✔️' %></td>
         </tr>
       <% end %>
     </tbody>
