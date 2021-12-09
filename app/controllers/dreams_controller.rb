@@ -1,6 +1,6 @@
 class DreamsController < ApplicationController
   def index
-    @dreams = Dream.all
+    @dreams = Dream.where(user_id: current_user.id).or(Dream.where(private: false))
   end
 
   def show
