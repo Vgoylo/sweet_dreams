@@ -9,4 +9,7 @@ class User < ApplicationRecord
   has_many :dreams
   has_many :comments
   has_many :replies
+
+  validates :name, :password, :email, presence: true
+  validates :password, format: { with: /\A\d{6,}\Z/, message: 'Should include 6 characters' }
 end
