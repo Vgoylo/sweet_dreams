@@ -13,7 +13,6 @@ class DreamsController < ApplicationController
 
   def update
     @dream = Dream.find(params[:id])
-
     if @dream.update(dream_params)
       flash[:success] = 'Success'
       redirect_to dreams_path
@@ -37,6 +36,6 @@ class DreamsController < ApplicationController
   private
 
   def dream_params
-    params.require(:dream).permit(:title, :description)
+    params.require(:dream).permit(:title, :description, :dream_date, :interval)
   end
 end
