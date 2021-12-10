@@ -1,0 +1,24 @@
+<% if current_user %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Email</th>
+        <th scope="col">Name</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Destroy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each_with_index do |user, index| %>
+           <tr>
+            <th scope="row"><%= index + 1 %></th>
+            <td><%= link_to user.email, user_path(user) %></td>
+            <td><%= user.name %></td>
+            <td><%= link_to 'Edit', edit_user_path(user) %></td>
+            <td><%= link_to 'Destroy', user_path(user), method: :delete %></td>
+          </tr>
+          <% end %>
+    </tbody>
+  </table>
+ <% end %>

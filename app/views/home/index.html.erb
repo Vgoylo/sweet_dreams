@@ -1,2 +1,23 @@
-<h1>Hello, Rails</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div>Welcome to Sweet Dreams</div>
+
+<% if current_user %>
+  <div>
+    You can:
+    <div>
+      See all
+      <%= link_to 'users', users_path %>
+    </div>
+
+    <div>
+      See all
+      <%= link_to 'dreams', dreams_path %>
+    </div>
+
+    <div>
+      See all
+      <%= link_to 'categories', categories_path %>
+    </div>
+  </div>
+<% else %>
+  Please <%= link_to 'Login', new_user_session_path %>
+<% end %>

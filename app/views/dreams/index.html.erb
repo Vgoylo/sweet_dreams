@@ -1,0 +1,32 @@
+<% if current_user %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Interval</th>
+        <th scope="col">Description</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Destroy</th>
+        <th scope="col">Public</th>
+        <th scope="col">User</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @dreams.each_with_index do |dream, index| %>
+        <tr>
+          <th scope="row"><%= index + 1 %></th>
+          <td><%= link_to dream.title, dream_path(dream) %></td>
+          <td><%= dream.dream_date %></td>
+          <td><%= dream.interval %></td>
+          <td><%= dream.description %></td>
+          <td><%= link_to 'Edit', edit_dream_path(dream) %></td>
+          <td><%= link_to 'Destroy', dream_path(dream), method: :delete %></td>
+          <td><%= dream.private ? '❌' : '✔️' %></td>
+          <td><%= dream.user.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+ <% end %>

@@ -1,7 +1,35 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# Add users
+20.times do |t|
+  User.create(
+    name: "Name #{t}",
+    email: "example#{t}@example.com",
+    password: '123456',
+    password_confirmation: '123456')
+end
+
+puts 'Users have been created'
+
+# Add categories
+%w[Horror Positive Dramma Comedi Adventure].each do |category_name|
+  Category.create(name: category_name)
+end
+
+puts 'Catigories have been created'
+
+# Add dreams
+User.all.each do |user|
+  categories_ids = Category.pluck(:id)
+
+  5.times do |t|
+    Note.create(
+      title: "Dream #{user.id} number #{t}",
+      description: 'Test dream description',
+      category_id: categories_ids.sample,
+      user_id: user.id,
+      dream_date: Time.now,
+      interval: Random.new.rand(20)
+    )
+  end
+end
+
+puts 'Dreams have been created'

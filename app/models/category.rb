@@ -1,3 +1,3 @@
 class Category < ApplicationRecord
-  has_many :notes
+  has_many :dreams, dependent: :delete_all
 end
