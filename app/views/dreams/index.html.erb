@@ -10,6 +10,7 @@
         <th scope="col">Edit</th>
         <th scope="col">Destroy</th>
         <th scope="col">Public</th>
+        <th scope="col">Image</th>
         <th scope="col">User</th>
       </tr>
     </thead>
@@ -24,6 +25,7 @@
           <td><%= link_to 'Edit', edit_dream_path(dream) %></td>
           <td><%= link_to 'Destroy', dream_path(dream), method: :delete %></td>
           <td><%= dream.private ? '❌' : '✔️' %></td>
+          <td><%= image_tag(dream.image.url(:thumb)) %></td>
           <td><%= dream.user.name %></td>
         </tr>
       <% end %>

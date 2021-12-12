@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_09_102843) do
+ActiveRecord::Schema.define(version: 2021_12_12_151309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,10 @@ ActiveRecord::Schema.define(version: 2021_12_09_102843) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "private", default: false, null: false
+    t.string "image_file_name"
+    t.integer "image_file_size"
+    t.string "image_content_type"
+    t.datetime "image_updated_at"
     t.index ["category_id"], name: "index_dreams_on_category_id"
     t.index ["user_id"], name: "index_dreams_on_user_id"
   end

@@ -3,6 +3,21 @@ class CategoriesController < ApplicationController
     @categories = Category.all
   end
 
+  def new
+    @category = Category.new
+  end
+
+  def create
+    @category = Category.create(category_params)
+    if @category
+      flash[:success] = 'Success'
+      redirect_to category_path(@category)
+    else
+      flash[:error] = 'Error'
+      render :new
+    end
+  end
+
   def show
     @category = Category.find(params[:id])
   end
@@ -14,7 +29,7 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
 
-    if @category.update(catigory_params)
+    if @category.update(category_params)
       flash[:success] = 'Success'
       redirect_to categories_path
     else
@@ -36,7 +51,7 @@ class CategoriesController < ApplicationController
 
   private
 
-  def catigory_params
+  def category_params
     params.require(:category).permit(:name)
   end
 end

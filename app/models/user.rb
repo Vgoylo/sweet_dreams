@@ -9,4 +9,5 @@ class User < ApplicationRecord
   has_many :dreams
   has_many :comments
   has_many :replies
+
 end
