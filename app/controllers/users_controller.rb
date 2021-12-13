@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
 
-    if @dream.destroy
+    if @user.destroy
       flash[:success] = 'Success'
       redirect_to users_path
     else

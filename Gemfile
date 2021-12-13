@@ -47,7 +47,6 @@ group :development do
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
-gem 'bootstrap'
 gem 'pry-rails', :group => :development
 gem 'annotate'
 gem "paperclip", "~> 6.0.0"

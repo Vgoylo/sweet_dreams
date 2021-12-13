@@ -11,7 +11,7 @@ class DreamsController < ApplicationController
     @dream = Dream.create(dream_params)
     if @dream
       flash[:success] = 'Success'
-      redirect_to dream_path(@dream)
+      redirect_to dreams_path(@dream)
     else
       flash[:error] = 'Error'
       render :new
