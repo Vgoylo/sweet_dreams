@@ -3,6 +3,21 @@ class DreamsController < ApplicationController
     @dreams = Dream.where(user_id: current_user.id).or(Dream.where(private: false))
   end
 
+  def new
+    @dream = Dream.new
+  end
+
+  def create
+    @dream = Dream.create(dream_params)
+    if @dream
+      flash[:success] = 'Success'
+      redirect_to dream_path(@dream)
+    else
+      flash[:error] = 'Error'
+      render :new
+    end
+  end
+
   def show
     @dream = Dream.find(params[:id])
   end

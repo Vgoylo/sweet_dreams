@@ -1,6 +1,8 @@
 <% if current_user %>
   <table class="table">
     <thead>
+    <td><%= link_to 'Home' %></td>
+    <%= link_to 'Create new dream', new_dream_path, class: 'btn btn-sucess' %></td>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
@@ -31,4 +33,5 @@
       <% end %>
     </tbody>
   </table>
- <% end %>
+
+<% end %>
