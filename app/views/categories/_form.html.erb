@@ -1,4 +1,7 @@
 <%= form_for @category do |f| %>
   Name: <%= f.text_field :name %><br />
-  <%= f.submit %>
+
+  <label class="btn btn-primary">
+    <%= f.submit %>
+  </label>
 <% end %>

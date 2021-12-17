@@ -1,7 +1,7 @@
 <% if current_user %>
   <table class="table">
     <thead>
-    <%= link_to 'Create new dream', new_dream_path, class: 'btn btn-sucess' %></td>
+    <%= link_to 'Create new dream', new_dream_path, class: 'btn btn-primary' %></td>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
@@ -24,7 +24,7 @@
           <td><%= dream.interval %></td>
           <td><%= dream.description %></td>
           <td><%= link_to 'Edit', edit_dream_path(dream) %></td>
-          <td><%= link_to 'Destroy', dream_path(dream), method: :delete %></td>
+          <td><%= link_to 'Destroy', dream_path(dream), data: {method: :delete, confirm: 'Are you sure' }%></td>
           <td><%= dream.private ? '❌' : '✔️' %></td>
           <td><%= image_tag(dream.image.url(:thumb)) %></td>
           <td><%= dream.user.name %></td>

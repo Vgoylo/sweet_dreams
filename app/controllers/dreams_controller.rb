@@ -8,8 +8,9 @@ class DreamsController < ApplicationController
   end
 
   def create
-    @dream = Dream.create(dream_params)
-    if @dream
+    @dream = Dream.new(dream_params)
+    @dream.user = current_user
+    if @dream.save
       flash[:success] = 'Success'
       redirect_to dreams_path(@dream)
     else
