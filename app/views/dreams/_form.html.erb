@@ -5,7 +5,7 @@
   Interval: <%= f.text_field :interval, required: true %><br />
   Image: <%= f.file_field :image, data: { placeholder: "No file selected" } %><br>
   Private: <%= f.check_box :private, {}, 'true', 'false' %><br>
-
+  Category: <%= f.collection_select :category_id, Category.order(:name),:id,:name, include_blank: true %>
   <label class="btn btn-primary active">
     <%= f.submit %>
   </label>
