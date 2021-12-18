@@ -23,7 +23,7 @@
           <td><%= link_to dream.title, dream_path(dream) %></td>
           <td><%= dream.dream_date %></td>
           <td><%= dream.interval %></td>
-          <td><%= dream.description %></td>
+          <td><%= dream.description.html_safe %></td>
           <td><%= link_to 'Edit', edit_dream_path(dream) %></td>
           <td><%= link_to 'Destroy', dream_path(dream), data: {method: :delete, confirm: 'Are you sure' }%></td>
           <td><%= dream.private ? '❌' : '✔️' %></td>
