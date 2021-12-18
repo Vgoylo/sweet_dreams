@@ -33,7 +33,11 @@
       <% end %>
     </tbody>
   </table>
-  <%= paginate @dreams, theme: 'bootstrap-5',
-  pagination_class: "pagination-sm flex-wrap justify-content-center",
-  nav_class: "d-inline-block" %>
+  <div class= "container col-md-5">
+    <%= paginate @dreams,
+                  theme: 'bootstrap-5',
+                  pagination_class: "pagination-sm flex-wrap justify-content-center",
+                  nav_class: "d-inline-block" %>
+
+  </div>
 <% end %>
