@@ -1,6 +1,8 @@
 class DreamsController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   def index
-    @dreams = Dream.where(user_id: current_user.id).or(Dream.where(private: false)).page params[:page]
+    @dreams = Dream.where(user_id: current_user.id).or(Dream.where(private: false)).order("#{sort_column} #{sort_direction}").page params[:page]
   end
 
   def new
@@ -53,5 +55,17 @@ class DreamsController < ApplicationController
 
   def dream_params
     params.require(:dream).permit(:title, :description, :dream_date, :interval, :private, :image, :category_id)
+  end
+
+  def sortable_columns
+    %w[tilte description].freeze
+  end
+
+  def sort_column
+    sortable_columns.include?(params[:column]) ? params[:column] : "title"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end
