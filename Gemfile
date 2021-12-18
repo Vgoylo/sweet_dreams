@@ -52,3 +52,5 @@ gem 'devise'
 gem 'pry-rails', :group => :development
 gem 'annotate'
 gem "paperclip", "~> 6.0.0"
+gem 'kaminari'
+gem 'bootstrap5-kaminari-views'

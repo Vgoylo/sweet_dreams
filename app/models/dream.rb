@@ -9,4 +9,5 @@ class Dream < ApplicationRecord
   validates :description, :interval, :dream_date, presence: true
   validates :interval, format: { with: /\A\d{2}:\d{2}\s?-\S?\d{2}:\d{2}\Z/, message: "Interval must keep xx:xx-xx:xx format" }
 
+  paginates_per 10
 end

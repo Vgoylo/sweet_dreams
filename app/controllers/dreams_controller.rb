@@ -1,6 +1,6 @@
 class DreamsController < ApplicationController
   def index
-    @dreams = Dream.where(user_id: current_user.id).or(Dream.where(private: false))
+    @dreams = Dream.where(user_id: current_user.id).or(Dream.where(private: false)).page params[:page]
   end
 
   def new
