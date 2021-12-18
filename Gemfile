@@ -54,3 +54,5 @@ gem 'annotate'
 gem "paperclip", "~> 6.0.0"
 gem 'kaminari'
 gem 'bootstrap5-kaminari-views'
+gem 'ckeditor'
+gem "mini_magick"
