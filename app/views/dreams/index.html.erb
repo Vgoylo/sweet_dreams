@@ -3,11 +3,13 @@
     <thead>
     <%= link_to 'Create new dream', new_dream_path, class: 'btn btn-primary' %></td>
       <tr>
-        <th scope="col">#</th>
+        <th scope="col">№</th>
         <th scope="col">
           <%= sort_link 'title' %>
         </th>
-        <th scope="col">Date</th>
+        <th scope="col">
+          <%= sort_link 'date' %>
+        </th>
         <th scope="col">Interval</th>
         <th scope="col">
           <%= sort_link 'description' %>
@@ -32,7 +34,10 @@
           <td><%= link_to 'Destroy', dream_path(dream), data: {method: :delete, confirm: 'Are you sure' }%></td>
           <td><%= dream.private ? '❌' : '✔️' %></td>
           <td><%= image_tag(dream.image.url(:thumb)) %></td>
+          <td><%= dream.category.name %></td>
           <td><%= dream.user.name %></td>
+
+
         </tr>
       <% end %>
     </tbody>
