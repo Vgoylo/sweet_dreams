@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-7">
+      <%= link_to 'Back', categories_path, class: 'btn btn-primary' %></td>
+      <%= form_for @category do |f| %>
+        <div class="field">
+          <%= f.label :name %><br/>
+          <%= f.text_field :name, required: true, class: "form-control" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit 'Save', class:"btn btn-primary" %>
+        </div>
+      <% end %>
+
+    </div>
+    <div class="col"></div>
+  </div>
+</div>

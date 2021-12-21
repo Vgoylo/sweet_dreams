@@ -1,6 +1,23 @@
 class CategoriesController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   def index
-    @categories = Category.all
+    @categories = Category.all.page(params[:page])
+  end
+
+  def new
+    @category = Category.new
+  end
+
+  def create
+    @category = Category.create(category_params)
+    if @category
+      flash[:success] = 'Success'
+      redirect_to category_path(@category)
+    else
+      flash[:error] = 'Error'
+      render :new
+    end
   end
 
   def show
@@ -14,7 +31,7 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
 
-    if @category.update(catigory_params)
+    if @category.update(category_params)
       flash[:success] = 'Success'
       redirect_to categories_path
     else
@@ -36,7 +53,19 @@ class CategoriesController < ApplicationController
 
   private
 
-  def catigory_params
+  def category_params
     params.require(:category).permit(:name)
+  end
+
+  def sortable_columns
+    %w[name].freeze
+  end
+
+  def sort_column
+    sortable_columns.include?(params[:column]) ? params[:column] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

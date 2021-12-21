@@ -1,9 +1,1 @@
-<%= form_for @dream do |f| %>
-  Title: <%= f.text_field :title %><br />
-  Description: <%= f.text_field :description %><br />
-  Date: <%= f.date_select :dream_date , order: [:month, :day, :year] ,start_year: 1900, end_year: Time.now.year %><br />
-  Interval: <%= f.text_field :interval %><br />
-  Private: <%= f.check_box :private, {}, 'true', 'false' %><br>
-
-  <%= f.submit %>
-<% end %>
+<%= render 'form' %>

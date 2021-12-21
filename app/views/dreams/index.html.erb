@@ -1,15 +1,24 @@
 <% if current_user %>
-  <table class="table">
+  <table class="table table-hover">
     <thead>
+    <%= link_to 'Create new dream', new_dream_path, class: 'btn btn-primary' %></td>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Date</th>
+        <th scope="col">№</th>
+        <th scope="col">
+          <%= sort_link 'title' %>
+        </th>
+        <th scope="col">
+          <%= sort_link 'date' %>
+        </th>
         <th scope="col">Interval</th>
-        <th scope="col">Description</th>
+        <th scope="col">
+          <%= sort_link 'description' %>
+        </th>
         <th scope="col">Edit</th>
         <th scope="col">Destroy</th>
         <th scope="col">Public</th>
+        <th scope="col">Image</th>
+        <th scope="col">Category</th>
         <th scope="col">User</th>
       </tr>
     </thead>
@@ -20,13 +29,23 @@
           <td><%= link_to dream.title, dream_path(dream) %></td>
           <td><%= dream.dream_date %></td>
           <td><%= dream.interval %></td>
-          <td><%= dream.description %></td>
+          <td><%= dream.description.html_safe %></td>
           <td><%= link_to 'Edit', edit_dream_path(dream) %></td>
-          <td><%= link_to 'Destroy', dream_path(dream), method: :delete %></td>
+          <td><%= link_to 'Destroy', dream_path(dream), data: {method: :delete, confirm: 'Are you sure' }%></td>
           <td><%= dream.private ? '❌' : '✔️' %></td>
+          <td><%= image_tag(dream.image.url(:thumb)) %></td>
+          <td><%= dream.category.name %></td>
           <td><%= dream.user.name %></td>
+
+
         </tr>
       <% end %>
     </tbody>
   </table>
- <% end %>
+  <div class= "container col-md-5">
+    <%= paginate @dreams,
+                  theme: 'bootstrap-5',
+                  pagination_class: "pagination-sm flex-wrap justify-content-center",
+                  nav_class: "d-inline-block" %>
+  </div>
+<% end %>

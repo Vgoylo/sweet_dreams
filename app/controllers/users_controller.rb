@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   def index
-    @users = User.all
+    @users = User.all.page(params[:page])
   end
 
   def show
@@ -26,7 +28,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
 
-    if @dream.destroy
+    if @user.destroy
       flash[:success] = 'Success'
       redirect_to users_path
     else
@@ -38,5 +40,17 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name)
+  end
+
+  def sortable_columns
+    %w[name].freeze
+  end
+
+  def sort_column
+    sortable_columns.include?(params[:column]) ? params[:column] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

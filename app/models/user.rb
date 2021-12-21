@@ -9,4 +9,6 @@ class User < ApplicationRecord
   has_many :dreams
   has_many :comments
   has_many :replies
+
+  paginates_per 15
 end

@@ -1,9 +1,12 @@
 <% if current_user %>
-  <table class="table">
+  <table class="table table-hover">
     <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
+      <td><%= link_to 'Create new category', new_category_path, class: 'btn btn-primary' %></td>
+        <tr>
+        <th scope="col">№</th>
+        <th scope="col">
+          <%= sort_link 'name' %>
+        </th>
         <th scope="col">Edit</th>
         <th scope="col">Destroy</th>
       </tr>
@@ -19,4 +22,11 @@
       <% end %>
     </tbody>
   </table>
- <% end %>
+  <div class= "container col-md-5">
+    <%= paginate @categories,
+                theme: 'bootstrap-5',
+                pagination_class: "pagination-sm flex-wrap justify-content-center",
+                nav_class: "d-inline-block" %>
+  </div>
+
+<% end %>

@@ -21,13 +21,13 @@ User.all.each do |user|
   categories_ids = Category.pluck(:id)
 
   5.times do |t|
-    Note.create(
+    Dream.create!(
       title: "Dream #{user.id} number #{t}",
       description: 'Test dream description',
       category_id: categories_ids.sample,
       user_id: user.id,
       dream_date: Time.now,
-      interval: Random.new.rand(20)
+      interval: "22:30-06:30"
     )
   end
 end
