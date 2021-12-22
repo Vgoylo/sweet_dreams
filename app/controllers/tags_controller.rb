@@ -1,19 +1,19 @@
-class CategoriesController < ApplicationController
+class TagsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @categories = Category.all.page(params[:page]).order("#{sort_column} #{sort_direction}").page params[:page]
+    @tag = Tag.all.page(params[:page]).order("#{sort_column} #{sort_direction}").page params[:page]
   end
 
   def new
-    @category = Category.new
+    @tag = Tag.new
   end
 
   def create
-    @category = Category.create(category_params)
-    if @category
+    @tag = Tag.create(tag_params)
+    if @tag
       flash[:success] = 'Success'
-      redirect_to category_path(@category)
+      redirect_to tag_path(@tag)
     else
       flash[:error] = 'Error'
       render :new
@@ -21,19 +21,19 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @category = Category.find(params[:id])
+    @tag = Tag.find(params[:id])
   end
 
   def edit
-    @category = Category.find(params[:id])
+    @tag = Tag.find(params[:id])
   end
 
   def update
-    @category = Category.find(params[:id])
+    @tag = Tag.find(params[:id])
 
-    if @category.update(category_params)
+    if @tag.update(tag_params)
       flash[:success] = 'Success'
-      redirect_to categories_path
+      redirect_to tag_path
     else
       flash[:error] = 'Error'
       render :edit
@@ -41,11 +41,11 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @category = Category.find(params[:id])
+    @tag = Tag.find(params[:id])
 
-    if @category.destroy
+    if @tag.destroy
       flash[:success] = 'Success'
-      redirect_to categories_path
+      redirect_to tags_path
     else
       flash[:error] = 'Error'
     end
@@ -53,8 +53,8 @@ class CategoriesController < ApplicationController
 
   private
 
-  def category_params
-    params.require(:category).permit(:name)
+  def tag_params
+    params.require(:tag).permit(:name)
   end
 
   def sortable_columns

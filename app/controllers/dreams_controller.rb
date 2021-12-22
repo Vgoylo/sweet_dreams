@@ -12,6 +12,8 @@ class DreamsController < ApplicationController
   def create
     @dream = Dream.new(dream_params)
     @dream.user = current_user
+    @dream.tag_ids = params[:post][:tag_ids]
+    binding.pry
     if @dream.save
       flash[:success] = 'Success'
       redirect_to dreams_path(@dream)
@@ -54,7 +56,7 @@ class DreamsController < ApplicationController
   private
 
   def dream_params
-    params.require(:dream).permit(:title, :description, :dream_date, :interval, :private, :image, :category_id)
+    params.require(:dream).permit(:title, :description, :dream_date, :interval, :private, :image, :category_id, tag_ids: [])
   end
 
   def sortable_columns
@@ -69,4 +71,3 @@ class DreamsController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end
-

@@ -16,12 +16,21 @@ end
 
 puts 'Catigories have been created'
 
+# Add tags
+%w[cool happy sience horror funny interesting].each do |tag_name|
+  Tag.create!(name: tag_name)
+end
+
+puts 'Tags have benn created'
+
+
 # Add dreams
 User.all.each do |user|
   categories_ids = Category.pluck(:id)
+  tags = Tag.all
 
   5.times do |t|
-    Dream.create!(
+    dream = Dream.create!(
       title: "Dream #{user.id} number #{t}",
       description: 'Test dream description',
       category_id: categories_ids.sample,
@@ -29,6 +38,10 @@ User.all.each do |user|
       dream_date: Time.now,
       interval: "22:30-06:30"
     )
+
+    tags.sample(2).each do |tag|
+      DreamTag.create!(dream_id: dream.id, tag_id: tag.id)
+    end
   end
 end
 

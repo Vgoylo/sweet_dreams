@@ -1,3 +1,3 @@
 class Tag < ApplicationRecord
-  has_many :note_tags
+  has_many :dream_tags
 end
