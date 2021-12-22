@@ -1,5 +1,5 @@
 module UsersHelper
-  def sort_link(column, title = nil)
+  def sort_link(column, name = nil)
     name ||= column.titleize
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     icon = sort_direction == "asc" ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down"

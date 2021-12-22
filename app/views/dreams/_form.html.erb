@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-7">
+  <div class="row", "table table-hover">
+    <div class="col-md">
       <%= link_to 'Back', dreams_path, class: 'btn btn-primary' %></td>
       <%= form_for @dream do |f| %>
         <div class="field">
@@ -11,6 +11,17 @@
           <%= f.label :description %><br/>
           <%= f.cktext_area :description, required: true, class: "form-control" %>
         </div>
+        <div class="container">
+          <div class="float-xl-end">
+            <%= f.label :tag %><br/>
+            <%= collection_check_boxes(:post, :tag_ids, Tag.all, :id, :name ) do |b| %>
+              <li>
+                <%= b.check_box %>
+                <%= b.label %>
+              </li>
+            <% end %>
+          </div>
+        </div>
         <div class="field">
           <%= f.label :date %><br/>
           <%= f.date_select :dream_date , order: [:month, :day, :year] ,start_year: 1900, end_year: Time.now.year, class: "form-control" %>
@@ -20,15 +31,14 @@
           <%= f.text_field :interval, required: true %>
         </div>
         <div class="field">
-          <%= f.label :image %><br />
+          <%= f.label :image %><br/>
           <%= f.file_field :image, data: { placeholder: "No file selected" } %>
         </div>
         <div>Private: <%= f.check_box :private, {}, 'true', 'false' %></div>
         <div class="field">
-          <%= f.label :category %><br />
+          <%= f.label :category %><br/>
           <%= f.collection_select :category_id, Category.order(:name),:id,:name, include_blank: true, class: "form-control" %>
         </div>
-
         <div class="actions">
           <%= f.submit 'Save', class:"btn btn-primary" %>
         </div>

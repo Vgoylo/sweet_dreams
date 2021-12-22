@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_18_135248) do
+ActiveRecord::Schema.define(version: 2021_12_20_195908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,15 @@ ActiveRecord::Schema.define(version: 2021_12_18_135248) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "dream_tags", force: :cascade do |t|
+    t.bigint "dream_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dream_id"], name: "index_dream_tags_on_dream_id"
+    t.index ["tag_id"], name: "index_dream_tags_on_tag_id"
+  end
+
   create_table "dreams", force: :cascade do |t|
     t.date "dream_date", null: false
     t.string "interval", null: false
@@ -86,15 +95,6 @@ ActiveRecord::Schema.define(version: 2021_12_18_135248) do
     t.datetime "image_updated_at"
     t.index ["category_id"], name: "index_dreams_on_category_id"
     t.index ["user_id"], name: "index_dreams_on_user_id"
-  end
-
-  create_table "note_tags", force: :cascade do |t|
-    t.bigint "note_id", null: false
-    t.bigint "tag_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["note_id"], name: "index_note_tags_on_note_id"
-    t.index ["tag_id"], name: "index_note_tags_on_tag_id"
   end
 
   create_table "replies", force: :cascade do |t|
@@ -132,10 +132,10 @@ ActiveRecord::Schema.define(version: 2021_12_18_135248) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "dreams", column: "note_id"
   add_foreign_key "comments", "users"
+  add_foreign_key "dream_tags", "dreams"
+  add_foreign_key "dream_tags", "tags"
   add_foreign_key "dreams", "categories"
   add_foreign_key "dreams", "users"
-  add_foreign_key "note_tags", "dreams", column: "note_id"
-  add_foreign_key "note_tags", "tags"
   add_foreign_key "replies", "comments"
   add_foreign_key "replies", "users"
 end
