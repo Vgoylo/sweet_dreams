@@ -1,7 +1,9 @@
 <% if current_user %>
   <table class="table table-hover">
     <thead>
-    <%= link_to 'Create new dream', new_dream_path, class: 'btn btn-primary' %></td>
+      <div class= "continr">
+        <%= link_to 'Create new dream', new_dream_path, class: 'btn btn-primary' %>
+      </div>
       <tr>
         <th scope="col">№</th>
         <th scope="col">
@@ -21,7 +23,7 @@
         <th scope="col">Destroy</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="table table-info table-striped">
       <% @dreams.each_with_index do |dream, index| %>
         <tr>
           <th scope="row"><%= index + 1 %></th>
