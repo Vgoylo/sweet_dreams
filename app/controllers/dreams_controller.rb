@@ -13,7 +13,6 @@ class DreamsController < ApplicationController
     @dream = Dream.new(dream_params)
     @dream.user = current_user
     @dream.tag_ids = params[:post][:tag_ids]
-    binding.pry
     if @dream.save
       flash[:success] = 'Success'
       redirect_to dreams_path(@dream)
