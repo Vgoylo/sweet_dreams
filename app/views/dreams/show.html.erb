@@ -1,10 +1,27 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-7">
-      <%= link_to 'Back', dreams_path, class: 'btn btn-primary' %></td>
-      <%= @dream.title %>
-      <%= image_tag(@dream.image.url(:medium)) %>
+<div class="table table-hover container">
+  <div class="col-md-12">
+    <%= link_to 'Oll Users', users_path, class: 'btn btn-primary' %></td>
+    <%= link_to 'Back', current_user, class: 'btn btn-primary' %>
+    <div class="float-xl-none">
+      <div>
+        <%= @dream.title %>
+      </div>
+      <div>
+        <%= @dream.dream_date %>
+      </div>
+      <div>
+        <%= @dream.interval %>
+      </div>
+      <div>
+        <%= @dream.description.html_safe%>
+      </div>
+      <div>
+        <%= @dream.user.name %>
+      </div>
+      <div>
+        <%= @dream.category.name %>
+      </div>
+        <%= image_tag(@dream.image.url(:medium)) %>
     </div>
-    <div class="col"></div>
-  </div>
+  <div/>
 </div>
