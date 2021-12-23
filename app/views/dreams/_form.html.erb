@@ -4,7 +4,7 @@
       <%= link_to 'Back', dreams_path, class: 'btn btn-primary' %></td>
       <%= form_for @dream do |f| %>
         <div class="field">
-          <%= f.label :title %><br/>
+          <%= f.label :title.name %><br/>
           <%= f.text_field :title, required: true, class: "form-control" %>
         </div>
         <div class="field">

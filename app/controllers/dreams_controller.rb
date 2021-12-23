@@ -32,6 +32,8 @@ class DreamsController < ApplicationController
 
   def update
     @dream = Dream.find(params[:id])
+    @dream.user = current_user
+    @dream.tag_ids = params[:post][:tag_ids]
     if @dream.update(dream_params)
       flash[:success] = 'Success'
       redirect_to dreams_path
