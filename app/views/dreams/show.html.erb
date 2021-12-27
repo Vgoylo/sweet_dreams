@@ -1,27 +1,50 @@
-<div class="table table-hover container">
-  <div class="col-md-12">
-    <%= link_to 'Oll Users', users_path, class: 'btn btn-primary' %></td>
-    <%= link_to 'Back', current_user, class: 'btn btn-primary' %>
-    <div class="float-xl-none">
-      <div>
-        <%= @dream.title %>
-      </div>
-      <div>
-        <%= @dream.dream_date %>
-      </div>
-      <div>
-        <%= @dream.interval %>
-      </div>
-      <div>
-        <%= @dream.description.html_safe%>
-      </div>
-      <div>
-        <%= @dream.user.name %>
-      </div>
-      <div>
-        <%= @dream.category.name %>
-      </div>
-        <%= image_tag(@dream.image.url(:medium)) %>
+<main class="table table-hover container">
+  <section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light"><%= @dream.title %></h1>
+      <p class="lead text-muted"><h3>Краткое описание мох сноведений.</h3></p>
+      <p>
+        <div class="btn-group" role="group" aria-label="Простой пример">
+          <%= link_to 'All dreams', dreams_path, class: 'btn btn-primary' %>
+          <%= link_to 'Back', current_user, class: 'btn btn-primary' %>
+          <%= link_to 'Comments', new_comment_path, class: 'btn btn-primary' %>
+        </div>
+      </p>
     </div>
-  <div/>
-</div>
+  </div>
+
+
+  <div class="table table-hover">
+  <div class='row'>
+     <div class="col-md-12">
+        <div class="mb-4 text-center ">
+          <%= image_tag(@dream.image.url(:medium)) %>
+        </div>
+         <h1 class= "text-center" >About the dream</h1>
+         <em>Уважаемые посетители сайта, предлагаем вашему вниманию наш новый проект!
+         Мы посвящаем его одному из самых увлекательных занятий – чтению.
+         </em>
+         <span style="font-family: Arial;">
+           Если вы хотите красиво и грамотно говорить, ясно и аргументировано выражать свои мысли – читайте как можно больше!
+           Мышление – процесс вербальный. Мы думаем, проговаривая свои мысли. Поэтому выражать их как можно точнее – очень важно всем, независимо от рода занятий,
+           и «физикам» и «лирикам». Так что, читайте больше, чтобы становиться умнее. Кроме того, мы с удовольствием предоставляем вам дискуссионную  площадку,
+           где можно обсудить понравившиеся вам произведения, или наоборот, не понравившиеся. Ждем ваших вдумчивых рецензий и эмоциональных отзывов.
+           Будем рады как тонким ценителям большой литературы и библиофилам, так и заядлым беллетристам и начинающим читателям, пока еще не искушенным.
+           Ваши рекомендации будут очень ценны всем любителям чтения. Присоединяйтесь!
+           В дальнейшем на сайте появится возможность как читать, так и скачивать различную литературу.
+         </span>
+         <div>
+            <p><h3>Sleep requisites</h3><br>
+              <span>Title</span>   <%= @dream.title %><br>
+              <span>Date</span>   <%= @dream.dream_date %><br>
+              <span>Interval</span>   <%= @dream.interval %><br>
+              <span>User name</span>   <%= @dream.user.name %><br>
+              <span>Category</span>   <%= @dream.category.name %><br>
+            </p>
+         </div>
+     <div/>
+     <div class="col"></div>
+   </div>
+ <div/>
+</main>

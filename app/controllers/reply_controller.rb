@@ -1,15 +1,15 @@
 class RepliesController < ApplicationController
 
   def index
-    @reply = Replies.all.page(params[:page])
+    @replise = Reply.all.page(params[:page])
   end
 
   def new
-    @reply = Replies.new
+    @reply = Reply.new
   end
 
   def create
-    @reply = Replies.create(raply_params)
+    @reply = Reply.create(raply_params)
     if @reply
       flash[:success] = 'Success'
       redirect_to reply_path(@reply)
@@ -20,15 +20,15 @@ class RepliesController < ApplicationController
   end
 
   def show
-    @reply = Replies.find(params[:id])
+    @reply = Reply.find(params[:id])
   end
 
   def edit
-    @reply = Replies.find(params[:id])
+    @reply = Reply.find(params[:id])
   end
 
   def update
-    @reply = Replies.find(params[:id])
+    @reply = Reply.find(params[:id])
 
     if @reply.update(replay_params)
       flash[:success] = 'Success'
@@ -40,7 +40,7 @@ class RepliesController < ApplicationController
   end
 
   def destroy
-    @reply = Replies.find(params[:id])
+    @reply = Reply.find(params[:id])
 
     if @reply.destroy
       flash[:success] = 'Success'
