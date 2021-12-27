@@ -2,7 +2,14 @@ class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @users = User.all.page(params[:page]).order("#{sort_column} #{sort_direction}").page params[:page]
+    @users = User.all.page(params[:page]).order("#{sort_column} #{sort_direction}")
+
+    if params[:search]
+      search = params[:search]
+      @users = @users.where('name like ? or email like ?', "%#{search}%", "%#{search}%")
+    end
+
+    @users = @users.page params[:page]
   end
 
   def show
@@ -40,7 +47,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name)
+    params.require(:user).permit(:search, :name)
   end
 
   def sortable_columns
