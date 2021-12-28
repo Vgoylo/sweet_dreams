@@ -2,7 +2,14 @@ class DreamsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @dreams = Dream.where(user_id: current_user.id).or(Dream.where(private: false)).order("#{sort_column} #{sort_direction}").page params[:page]
+    @dreams = Dream.where(user_id: current_user.id).or(Dream.where(private: false)).order("#{sort_column} #{sort_direction}")
+
+   if  params[:search]
+    search = params[:search]
+    @dreams = @dreams.where('title like ? or description like ?', "%#{search}%", "%#{search}%")
+   end
+
+   @dreams = @dreams.page params[:page]
   end
 
   def new
@@ -57,7 +64,7 @@ class DreamsController < ApplicationController
   private
 
   def dream_params
-    params.require(:dream).permit(:title, :description, :dream_date, :interval, :private, :image, :category_id, tag_ids: [])
+    params.require(:dream).permit(:title, :description, :dream_date, :interval, :private, :image, :category_id, :search, tag_ids: [])
   end
 
   def sortable_columns
