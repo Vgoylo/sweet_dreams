@@ -1,13 +1,9 @@
 <div class="container">
-  <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+  <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom,"navbar navbar-light" style="background-color: #e3f2fd;"">
     <a href="<%= root_path %>" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
       <svg class="bi me-2" width="40" height="32"><use xlink:href="root_path"></use></svg>
       <span  class='btn btn-primary'>Sweet Dreams</span>
     </a>
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
-      <button class="btn btn-outline-success" type="submit">Поиск</button>
-    </form>
     <% if user_signed_in? %>
         <ul class="nav nav-pills">
           <li class="nav-item">
