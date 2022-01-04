@@ -12,4 +12,5 @@ class Dream < ApplicationRecord
 
   paginates_per 10
 
+  scope :by_user, lambda { |user_id| where(user_id: user_id) }
 end

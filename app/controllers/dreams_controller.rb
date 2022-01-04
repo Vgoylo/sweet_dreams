@@ -2,7 +2,12 @@ class DreamsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @dreams = Dream.where(user_id: current_user.id).or(Dream.where(private: false)).order("#{sort_column} #{sort_direction}")
+    @dreams =
+      if params[:private]
+        Dream.by_user(current_user.id).where(private: params[:private])
+      else
+        Dream.by_user(current_user.id).or(Dream.where(private: false))
+      end.order("#{sort_column} #{sort_direction}")
 
    if  params[:search]
     search = params[:search]
