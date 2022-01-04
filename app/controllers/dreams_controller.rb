@@ -5,6 +5,8 @@ class DreamsController < ApplicationController
     @dreams =
       if params[:private]
         Dream.by_user(current_user.id).where(private: params[:private])
+      elsif params[:user_id]
+        Dream.by_user(params[:user_id])
       else
         Dream.by_user(current_user.id).or(Dream.where(private: false))
       end.order("#{sort_column} #{sort_direction}")
@@ -73,7 +75,7 @@ class DreamsController < ApplicationController
   end
 
   def sortable_columns
-    %w[tilte description].freeze
+    %w[tilte description private].freeze
   end
 
   def sort_column
