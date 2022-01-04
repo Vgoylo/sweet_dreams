@@ -21,18 +21,17 @@ puts 'Catigories have been created'
   Tag.create!(name: tag_name)
 end
 
-puts 'Tags have benn created'
+puts 'Tags have been created'
 
 
 # Add dreams
 User.all.each do |user|
   categories_ids = Category.pluck(:id)
   tags = Tag.all
-
   5.times do |t|
     dream = Dream.create!(
       title: "Dream #{user.id} number #{t}",
-      description: 'Test dream description',
+      description: 'Test dream description ' * 25,
       category_id: categories_ids.sample,
       user_id: user.id,
       dream_date: Time.now,
@@ -46,3 +45,22 @@ User.all.each do |user|
 end
 
 puts 'Dreams have been created'
+
+# Add comments
+all_users_ids = User.pluck(:id)
+Dream.all.each do |dream|
+  user_id = dream.user_id
+  commented_users_ids = all_users_ids - [user_id]
+
+  commented_users_ids.sample(3).each do |comment_user_id|
+    comment = Comment.new
+
+    comment.text = "Commented by #{comment_user_id}" * (10..15).to_a.sample
+    comment.user_id = comment_user_id
+    comment.dream = dream
+
+    comment.save!
+  end
+end
+
+puts 'Comments have been created'

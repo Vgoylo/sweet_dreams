@@ -17,7 +17,7 @@
           <% @dreams.each do |dream| %>
             <div class="container card">
               <p class="card-text"><h4><%= dream.title %></h4></p>
-              <p class="card-text"><%= dream.description.html_safe %></p>
+              <p class="card-text"><%= dream.description.html_safe.first(150) %></p>
               <div class="mb-4 text-center ">
                 <% if dream.image %>
                   <%= image_tag(dream.image.url(:thumb)) %>

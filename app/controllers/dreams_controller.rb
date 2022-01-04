@@ -38,6 +38,8 @@ class DreamsController < ApplicationController
 
   def show
     @dream = Dream.find(params[:id])
+    @new_comment = Comment.new(dream: @dream)
+    @dream_comments = @dream.comments.order(created_at: :desc)
   end
 
   def edit

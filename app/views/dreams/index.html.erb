@@ -41,7 +41,7 @@
           <td><%= link_to dream.title, dream_path(dream) %></td>
           <td><%= dream.dream_date %></td>
           <td><%= dream.interval %></td>
-          <td><%= dream.description.html_safe %></td>
+          <td><%= dream.description.html_safe.first(50)... %></td>
           <td>
             <% dream.dream_tags.map do |dream_tag| %>
               <span class="badge badge-primary"><%= dream_tag.tag.name %></span>

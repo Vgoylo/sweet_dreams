@@ -3,14 +3,6 @@
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
       <h1 class="fw-light"><%= @dream.title %></h1>
-      <p class="lead text-muted"><h3>Краткое описание мох сноведений.</h3></p>
-      <p>
-        <div class="btn-group" role="group" aria-label="Простой пример">
-          <%= link_to 'All dreams', dreams_path, class: 'btn btn-primary' %>
-          <%= link_to 'Back', current_user, class: 'btn btn-primary' %>
-          <%= link_to 'Comments', new_comment_path, class: 'btn btn-primary' %>
-        </div>
-      </p>
     </div>
   </div>
 
@@ -21,17 +13,8 @@
           <%= image_tag(@dream.image.url(:medium)) %>
         </div>
          <h1 class= "text-center" >About the dream</h1>
-         <em>Уважаемые посетители сайта, предлагаем вашему вниманию наш новый проект!
-         Мы посвящаем его одному из самых увлекательных занятий – чтению.
-         </em>
          <span style="font-family: Arial;">
-          If you want to speak beautifully and competently, express your thoughts clearly and reasonably - read as much as possible!
-          Thinking is a verbal process. We think by speaking our thoughts. Therefore, expressing them as accurately as possible is very important for everyone, regardless of occupation,
-          and "physicists" and "lyricists". So read more to get smarter. In addition, we are pleased to provide you with a discussion platform,
-          where you can discuss the works you like, or vice versa, not like. We look forward to your thoughtful reviews and emotional feedback.
-          We will be glad to both connoisseurs of great literature and bibliophiles, as well as avid fiction writers and novice readers who are not yet sophisticated.
-          Your recommendations will be very valuable to all reading lovers. Join us!
-          In the future, the site will be able to both read and download various literature.
+           <%= @dream.description %>
          </span>
          <div>
             <p><h3>Sleep requisites</h3><br>
@@ -41,9 +24,37 @@
               <span>User name</span>   <%= @dream.user.name %><br>
               <span>Category</span>   <%= @dream.category.name %><br>
             </p>
+            <div class="btn-group" role="group" aria-label="Простой пример">
+              <%= link_to 'All dreams', dreams_path, class: 'btn btn-primary' %>
+              <%= link_to 'Back', current_user, class: 'btn btn-primary' %>
+            </div class="container">
+            </hr>
+              <h4>Comments:</h4>
+
+             <% render partial: 'comments/form', locals: { comment: @new_comment } %>
+             <% @dream_comments.each do |comment| %>
+              <div class="accordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      <%= comment.user.email %>
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <%= comment.text %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             <% end %>
          </div>
+        </div>
+
      <div/>
      <div class="col"></div>
    </div>
  <div/>
 </main>
+
+

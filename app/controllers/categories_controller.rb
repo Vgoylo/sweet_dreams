@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
     @category = Category.create(category_params)
     if @category
       flash[:success] = 'Success'
-      redirect_to category_path(@category)
+      redirect_to categories_path
     else
       flash[:error] = 'Error'
       render :new
