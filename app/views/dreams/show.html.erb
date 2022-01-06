@@ -26,7 +26,6 @@
           <div class="btn-group" role="group" aria-label="Простой пример">
             <%= link_to 'All dreams', dreams_path, class: 'btn btn-primary' %>
             <%= link_to 'Back', current_user, class: 'btn btn-primary' %>
-            <%= link_to 'Comment', new_category_path, class: 'btn btn-primary' %>
           </div>
           <h4 class="text-start">Comments:</h4>
 
@@ -40,6 +39,26 @@
               </div>
             </div>
           <% end %>
+          <div class="container text-end">
+            <div class="row">
+              <div class="col-md-7">
+
+                <%= form_for @comment, url: { controller: :comments, action: :create } do |f| %>
+                  <div class="field">
+                    <%= f.text_field :text, required: true, class: "form-control" %>
+                    <%= f.hidden_field :dream_id %>
+                  </div>
+                  <div class="actions">
+                    <%= f.submit 'Comment', class:"btn btn-primary" %>
+                  </div>
+                <% end %>
+                <hr>
+                  <%= link_to 'Back', user_path(current_user), class: 'btn btn-primary' %></td>
+                </hr>
+              </div>
+              <div class="col"></div>
+            </div>
+          </div>
         </div>
 
       <div class="col"></div>

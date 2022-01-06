@@ -40,7 +40,7 @@ class DreamsController < ApplicationController
 
   def show
     @dream = Dream.find(params[:id])
-    @new_comment = Comment.new(dream: @dream)
+    @comment = Comment.new(dream: @dream, user_id: current_user.id)
     @dream_comments = @dream.comments.order(created_at: :desc)
   end
 
@@ -54,7 +54,7 @@ class DreamsController < ApplicationController
     @dream.tag_ids = params[:post][:tag_ids]
     if @dream.update(dream_params)
       flash[:success] = 'Success'
-      redirect_to dreams_path
+      redirect_to user_path(current_user)
     else
       flash[:error] = 'Error'
       render :edit
