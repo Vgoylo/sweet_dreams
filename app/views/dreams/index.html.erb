@@ -51,8 +51,10 @@
           <td><%= image_tag(dream.image.url(:thumb)) %></td>
           <td><%= dream.category.name %></td>
           <td><%= dream.user.name %></td>
-          <td><%= link_to 'Edit', edit_dream_path(dream) %></td>
-          <td><%= link_to 'Destroy', dream_path(dream), data: {method: :delete, confirm: 'Are you sure' }%></td>
+          <% if dream.user == current_user %>
+            <td><%= link_to 'Edit', edit_dream_path(dream) %></td>
+            <td><%= link_to 'Destroy', dream_path(dream), data: {method: :delete, confirm: 'Are you sure' }%></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
