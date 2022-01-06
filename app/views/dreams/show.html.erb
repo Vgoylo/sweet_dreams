@@ -3,47 +3,46 @@
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
       <h1 class="fw-light"><%= @dream.title %></h1>
-      <p class="lead text-muted"><h3>Краткое описание мох сноведений.</h3></p>
-      <p>
-        <div class="btn-group" role="group" aria-label="Простой пример">
-          <%= link_to 'All dreams', dreams_path, class: 'btn btn-primary' %>
-          <%= link_to 'Back', current_user, class: 'btn btn-primary' %>
-          <%= link_to 'Comments', new_comment_path, class: 'btn btn-primary' %>
-        </div>
-      </p>
     </div>
   </div>
 
-  <div class="table table-hover">
   <div class='row'>
-     <div class="col-md-12">
+    <div class="col-md-12">
         <div class="mb-4 text-center ">
           <%= image_tag(@dream.image.url(:medium)) %>
         </div>
-         <h1 class= "text-center" >About the dream</h1>
-         <em>Уважаемые посетители сайта, предлагаем вашему вниманию наш новый проект!
-         Мы посвящаем его одному из самых увлекательных занятий – чтению.
-         </em>
-         <span style="font-family: Arial;">
-          If you want to speak beautifully and competently, express your thoughts clearly and reasonably - read as much as possible!
-          Thinking is a verbal process. We think by speaking our thoughts. Therefore, expressing them as accurately as possible is very important for everyone, regardless of occupation,
-          and "physicists" and "lyricists". So read more to get smarter. In addition, we are pleased to provide you with a discussion platform,
-          where you can discuss the works you like, or vice versa, not like. We look forward to your thoughtful reviews and emotional feedback.
-          We will be glad to both connoisseurs of great literature and bibliophiles, as well as avid fiction writers and novice readers who are not yet sophisticated.
-          Your recommendations will be very valuable to all reading lovers. Join us!
-          In the future, the site will be able to both read and download various literature.
-         </span>
-         <div>
-            <p><h3>Sleep requisites</h3><br>
-              <span>Title</span>   <%= @dream.title %><br>
-              <span>Date</span>   <%= @dream.dream_date %><br>
-              <span>Interval</span>   <%= @dream.interval %><br>
-              <span>User name</span>   <%= @dream.user.name %><br>
-              <span>Category</span>   <%= @dream.category.name %><br>
-            </p>
-         </div>
-     <div/>
-     <div class="col"></div>
-   </div>
- <div/>
+          <h1 class= "text-center" >About the dream</h1>
+        <span style="font-family: Arial;">
+          <%= @dream.description %>
+        </span>
+        <div>
+          <p><h3>Sleep requisites</h3><br>
+            <span>Title:</span> <%= @dream.title %><br>
+            <span>Date:</span>   <%= @dream.dream_date %><br>
+            <span>Interval:</span>   <%= @dream.interval %><br>
+            <span>User name:</span>   <%= @dream.user.name %><br>
+            <span>Category:</span>   <%= @dream.category.name %><br>
+          </p>
+          <div class="btn-group" role="group" aria-label="Простой пример">
+            <%= link_to 'All dreams', dreams_path, class: 'btn btn-primary' %>
+            <%= link_to 'Back', current_user, class: 'btn btn-primary' %>
+            <%= link_to 'Comment', new_category_path, class: 'btn btn-primary' %>
+          </div>
+          <h4 class="text-start">Comments:</h4>
+
+          <% @dream_comments.each do |comment| %>
+            <div class="mb-2 border">
+              <div class="text-start text-primary">
+                <%= comment.user.email %>
+              </div>
+              <div class="mb-2 text-center">
+                <%= comment.text %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+      <div class="col"></div>
+    </div>
+  <div/>
 </main>

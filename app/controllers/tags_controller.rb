@@ -13,7 +13,7 @@ class TagsController < ApplicationController
     @tag = Tag.create(tag_params)
     if @tag
       flash[:success] = 'Success'
-      redirect_to tag_path(@tag)
+      redirect_to tags_path
     else
       flash[:error] = 'Error'
       render :new

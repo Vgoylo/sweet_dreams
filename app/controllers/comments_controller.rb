@@ -1,60 +1,37 @@
 class CommentsController < ApplicationController
 
-  def index
-    @comments = Comment.where(dream_id: params[:dream_id])
-  end
-
-  def new
-    @comment = Comment.new
-  end
-
   def create
     @comment = Comment.new(comment_params)
-    @comment.user = current_user
-    if @comment.save
-      flash[:success] = 'Success'
-      redirect_to coments_path(@comment)
-    else
-      flash[:error] = 'Error'
-      render :new
+
+    respond_to do |format|
+      if @comment.save
+        format.html { rederect_to dream_url(dream_id), notice: 'Comment was successfully created.' }
+      else
+        format.html { rederect_to dream_url(dream_id), alert: "Cant save comment: #{@comment.errors.full_messages.join(', ')} "}
+      end
     end
   end
 
-  def show
-    @comment = Comment.find(params[:id])
-  end
-
-  def edit
-    @comment = Comment.find(params[:id])
-  end
-
-  def update
-    @comment = Comment.find(params[:id])
-    @comment.user = current_user
-    @comment.tag_ids = params[:post][:tag_ids]
-    if @comment.update(comment_params)
-      flash[:success] = 'Success'
-      redirect_to comments_path
-    else
-      flash[:error] = 'Error'
-      render :edit
-    end
-  end
 
   def destroy
-    @comment = Comment.find(params[:id])
+    @comment = Comment.new(comment_params)
 
-    if @comment.destroy
-      flash[:success] = 'Success'
-      redirect_to comments_path
-    else
-      flash[:error] = 'Error'
+    respond_to do |format|
+      if @comment.destroy
+        format.html { rederect_to dream_url(dream_id), notice: 'Comment was successfully created.' }
+      else
+        format.html { rederect_to dream_url(dream_id), alert: "Cant save comment: #{@comment.errors.full_messages.join(', ')} "}
+      end
     end
   end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:text, :dream_id)
+    params.require(:comment).permit(:text, :dream_id).merge(user: current_user)
+  end
+
+  def dream_id
+    comment_params[:dream_id]
   end
 end

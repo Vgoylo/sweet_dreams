@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_user!
   helper_method :sort_column, :sort_direction
 
   def index
@@ -13,7 +14,7 @@ class CategoriesController < ApplicationController
     @category = Category.create(category_params)
     if @category
       flash[:success] = 'Success'
-      redirect_to category_path(@category)
+      redirect_to categories_path
     else
       flash[:error] = 'Error'
       render :new

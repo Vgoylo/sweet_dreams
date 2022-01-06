@@ -3,7 +3,9 @@ class DreamsController < ApplicationController
 
   def index
     @dreams =
-      if params[:private]
+      if current_user.nil?
+        Dream.where(private: false)
+      elsif params[:private]
         Dream.by_user(current_user.id).where(private: params[:private])
       elsif params[:user_id]
         Dream.by_user(params[:user_id])
@@ -29,7 +31,7 @@ class DreamsController < ApplicationController
     @dream.tag_ids = params[:post][:tag_ids]
     if @dream.save
       flash[:success] = 'Success'
-      redirect_to dreams_path(@dream)
+      redirect_to user_path(current_user)
     else
       flash[:error] = 'Error'
       render :new
@@ -38,6 +40,8 @@ class DreamsController < ApplicationController
 
   def show
     @dream = Dream.find(params[:id])
+    @new_comment = Comment.new(dream: @dream)
+    @dream_comments = @dream.comments.order(created_at: :desc)
   end
 
   def edit
@@ -62,7 +66,7 @@ class DreamsController < ApplicationController
 
     if @dream.destroy
       flash[:success] = 'Success'
-      redirect_to dreams_path
+      redirect_to user_path(current_user)
     else
       flash[:error] = 'Error'
     end

@@ -12,7 +12,7 @@ class RepliesController < ApplicationController
     @reply = Reply.create(raply_params)
     if @reply
       flash[:success] = 'Success'
-      redirect_to reply_path(@reply)
+      redirect_to replise_path
     else
       flash[:error] = 'Error'
       render :new
