@@ -3,12 +3,11 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
 
-    respond_to do |format|
-      if @comment.save
-        format.html { rederect_to dream_url(dream_id), notice: 'Comment was successfully created.' }
-      else
-        format.html { rederect_to dream_url(dream_id), alert: "Cant save comment: #{@comment.errors.full_messages.join(', ')} "}
-      end
+    if @comment.save
+      flash[:success] = 'Success'
+      redirect_to dream_path(dream_id)
+    else
+      format.html { rederect_to dream_url(dream_id), alert: "Cant save comment: #{@comment.errors.full_messages.join(', ')} "}
     end
   end
 
