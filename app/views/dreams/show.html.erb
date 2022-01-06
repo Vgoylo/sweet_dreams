@@ -36,6 +36,11 @@
               </div>
               <div class="mb-2 text-center">
                 <%= comment.text %>
+                <% if comment.user == current_user %>
+                  <div class='col-10 d-flex flex-row-reverse'>
+                    <%= link_to 'Delete', comment_path(comment), method: :delete, class: 'btn btn-danger' %>
+                  </div>
+                 <% end %>
               </div>
             </div>
           <% end %>
@@ -45,7 +50,7 @@
 
                 <%= form_for @comment, url: { controller: :comments, action: :create } do |f| %>
                   <div class="field">
-                    <%= f.text_field :text, required: true, class: "form-control" %>
+                    <%= f.text_area :text, required: true, class: "form-control" %>
                     <%= f.hidden_field :dream_id %>
                   </div>
                   <div class="actions">

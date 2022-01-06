@@ -7,20 +7,18 @@ class CommentsController < ApplicationController
       flash[:success] = 'Success'
       redirect_to dream_path(dream_id)
     else
-      format.html { rederect_to dream_url(dream_id), alert: "Cant save comment: #{@comment.errors.full_messages.join(', ')} "}
+      flash[:error] = 'Error'
     end
   end
 
-
   def destroy
-    @comment = Comment.new(comment_params)
+    @comment = Comment.find(params[:id])
 
-    respond_to do |format|
-      if @comment.destroy
-        format.html { rederect_to dream_url(dream_id), notice: 'Comment was successfully created.' }
-      else
-        format.html { rederect_to dream_url(dream_id), alert: "Cant save comment: #{@comment.errors.full_messages.join(', ')} "}
-      end
+    if @comment.destroy
+      flash[:success] = 'Success'
+      redirect_to dream_path(dream_id)
+    else
+      flash[:error] = 'Error'
     end
   end
 
