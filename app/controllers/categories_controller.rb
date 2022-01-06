@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_user!
   helper_method :sort_column, :sort_direction
 
   def index
