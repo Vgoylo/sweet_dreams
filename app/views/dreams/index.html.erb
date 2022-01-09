@@ -10,6 +10,9 @@
           <%= link_to 'My dreams', dreams_path(user_id: current_user.id), class: "btn btn-sm btn-outline-secondary"  %>
           <%= link_to '✔️', dreams_path(private: false), class: "btn btn-sm btn-outline-secondary"  %>
           <%= link_to '❌', dreams_path(private: true), class: "btn btn-sm btn-outline-secondary" %>
+          <%= collection_select(:dream, :category_id, Category.order(:name),
+                  :id, :name,
+                 {:prompt => 'Please select category'}) %>
         </div>
       </div>
 
