@@ -2,14 +2,17 @@ class TagsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
+    authorize Tag
     @tag = Tag.all.page(params[:page]).order("#{sort_column} #{sort_direction}").page params[:page]
   end
 
   def new
+    authorize Tag
     @tag = Tag.new
   end
 
   def create
+    authorize Tag
     @tag = Tag.create(tag_params)
     if @tag
       flash[:success] = 'Success'
@@ -21,14 +24,17 @@ class TagsController < ApplicationController
   end
 
   def show
+    authorize Tag
     @tag = Tag.find(params[:id])
   end
 
   def edit
+    authorize Tag
     @tag = Tag.find(params[:id])
   end
 
   def update
+    authorize Tag
     @tag = Tag.find(params[:id])
 
     if @tag.update(tag_params)
@@ -41,6 +47,7 @@ class TagsController < ApplicationController
   end
 
   def destroy
+    authorize Tag
     @tag = Tag.find(params[:id])
 
     if @tag.destroy

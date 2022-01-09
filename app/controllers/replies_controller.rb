@@ -1,20 +1,22 @@
 class RepliesController < ApplicationController
   def create
-    @replay = Reply.new(reply_params)
-    if @replay.save
+    authorize Reply
+    @reply = Reply.new(reply_params)
+    if @reply.save
       flash[:success] = 'Success'
-      redirect_to dream_path(@replay.comment.dream)
+      redirect_to dream_path(@reply.comment.dream)
     else
       flash[:error] = 'Error'
     end
   end
 
   def destroy
-    @replay = Reply.find(params[:id])
+    @reply = Reply.find(params[:id])
+    authorize @reply
 
-    if @replay.destroy
+    if @reply.destroy
       flash[:success] = 'Success'
-      redirect_to dream_path(@replay.comment.dream)
+      redirect_to dream_path(@reply.comment.dream)
     else
       flash[:error] = 'Error'
     end

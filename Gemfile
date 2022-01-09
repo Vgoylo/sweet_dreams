@@ -58,3 +58,5 @@ gem 'ckeditor'
 gem "mini_magick"
 gem 'momentjs-rails'
 gem 'rails_bootstrap_sortable'
+gem 'plyr-rails'
+gem "pundit"

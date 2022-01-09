@@ -3,14 +3,17 @@ class CategoriesController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
+    authorize Category
     @categories = Category.all.page(params[:page]).order("#{sort_column} #{sort_direction}").page params[:page]
   end
 
   def new
+    authorize Category
     @category = Category.new
   end
 
   def create
+    authorize Category
     @category = Category.create(category_params)
     if @category
       flash[:success] = 'Success'
@@ -22,14 +25,17 @@ class CategoriesController < ApplicationController
   end
 
   def show
+    authorize Category
     @category = Category.find(params[:id])
   end
 
   def edit
+    authorize Category
     @category = Category.find(params[:id])
   end
 
   def update
+    authorize Category
     @category = Category.find(params[:id])
 
     if @category.update(category_params)
@@ -42,6 +48,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
+    authorize Category
     @category = Category.find(params[:id])
 
     if @category.destroy

@@ -13,7 +13,7 @@
         </div>
           <h1 class= "text-center" >About the dream</h1>
         <span style="font-family: Arial;">
-          <%= @dream.description %>
+          <%= @dream.description.html_safe %>
         </span>
         <div>
           <p><h3>Sleep requisites</h3><br>
@@ -34,11 +34,12 @@
               <div class="text-start text-primary">
                 <%= comment.user.email %>
               </div>
-              <div class="mb-2 text-center">
+              <div class="mb-2 text-start">
+                <h5>Comment : </h5>
                 <%= comment.text %>
                 <% if comment.user == current_user %>
-                  <div class='col-10 d-flex flex-row-reverse'>
-                    <%= link_to 'Delete', comment_path(comment), method: :delete, class: 'btn btn-danger' %>
+                  <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <%= link_to 'Delete', comment_path(comment), method: :delete, class: 'btn btn-danger btn-sm' %>
                   </div>
                 <% end %>
 
@@ -47,15 +48,32 @@
                     <%= f.text_field :text, required: true, class: "form-control" %>
                     <%= f.hidden_field :comment_id %>
                   </div>
-                  <div class='col-10 d-flex flex-row-reverse'>
+                  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <%= f.submit 'Reply', class:"btn btn-primary" %>
+                  </div>
+                <% end %>
+
+                <% @comment_replies.where(comment_id: comment.id).each do |reply| %>
+                  <div class="mb-2">
+                    <div class="text-end text-primary">
+                      <%= reply.user.email %>
+                    </div>
+                    <div class="mb-2 text-end">
+                      <h5>Replies</h5>
+                      <%= reply.text %>
+                      <% if comment.user == current_user %>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                          <%= link_to 'Delete', comment_path(comment), method: :delete, class: 'btn btn-danger btn-sm' %></br>
+                        </div>
+                      <% end %>
+                    </div>
                   </div>
                 <% end %>
               </div>
             </div>
+            </br>
+            </br>
           <% end %>
-
-
           <div class="container text-end">
             <div class="row">
               <div class="col-md-7">
