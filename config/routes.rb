@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   get 'home/index'
   devise_for :users
 
-  resources :users
+  resources :users do
+    patch 'update_block_status', on: :member
+  end
   resources :dreams
   resources :categories
   resources :tags

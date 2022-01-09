@@ -2,7 +2,12 @@
   <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom,"navbar navbar-light" style="background-color: #e3f2fd;"">
     <a href="<%= root_path %>" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
       <svg class="bi me-2" width="40" height="32"><use xlink:href="root_path"></use></svg>
-      <span  class='btn btn-primary'>Sweet Dreams</span>
+      <div>
+       <div class='col-12 btn btn-primary'>Sweet Dreams</div>
+      </div>
+      <div class='col-2 d-flex text-primary text-end'>
+        <%= Time.now.strftime("%d.%m.%Y %H:%M") %>
+      </div>
     </a>
     <%= form_tag dreams_path, method: :get, class: "d-flex" do %>
       <%= text_field_tag :search, params[:search], class: "form-control me-2" %>
@@ -19,12 +24,14 @@
           <li# class="nav-item">
             <%#= link_to 'Comment', comments_path, class: "nav-link" %>
           </li#>
-          <li class="nav-item">
-          <%= link_to 'Categories', categories_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-          <%= link_to 'Tags', tags_path, class: "nav-link" %>
-          </li>
+          <% if current_user.admin? %>
+            <li class="nav-item">
+            <%= link_to 'Categories', categories_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+            <%= link_to 'Tags', tags_path, class: "nav-link" %>
+            </li>
+          <% end %>
           <li class="nav-item">
             <%= link_to 'My Account', current_user, class: "nav-link" %>
           </li>

@@ -12,8 +12,22 @@
   </head>
 
   <body>
+    <div class='d-grid gap-4 d-md-flex justify-content-md-start'>
+      <audio
+        data-turbo-permanent
+        id="white-noise-player"
+        controls
+        src="http://uk1.internet-radio.com:8267/listen.pls&t=.m3u">
+          Your browser does not support the
+          <code>audio</code> element.
+      </audio>
+    </div>
     <%= render 'shared/header' %>
-    <%= yield %>
+    <% unless current_user&.blocked %>
+      <%= yield %>
+    <% else %>
+      <h2>You are blocked</h2>
+    <% end %>
     <%= render 'shared/footer' %>
   </body>
 </html>

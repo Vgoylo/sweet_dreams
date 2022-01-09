@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
+    authorize User
     @users = User.all.page(params[:page]).order("#{sort_column} #{sort_direction}")
 
     if params[:search]
@@ -14,20 +15,23 @@ class UsersController < ApplicationController
   end
 
   def show
+    authorize User
     @user = User.find(params[:id])
     @dreams = @user.dreams
   end
 
   def edit
     @user = User.find(params[:id])
+    authorize @user
   end
 
   def update
     @user = User.find(params[:id])
+    authorize @user
 
     if @user.update(user_params)
       flash[:success] = 'Success'
-      redirect_to users_path
+      redirect_to user_path(@user)
     else
       flash[:error] = 'Error'
       render :edit
@@ -36,6 +40,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    authorize User
 
     if @user.destroy
       flash[:success] = 'Success'
@@ -43,6 +48,14 @@ class UsersController < ApplicationController
     else
       flash[:error] = 'Error'
     end
+  end
+
+  def update_block_status
+    authorize User
+    @user = User.find(params[:id])
+    @user.blocked = !@user.blocked
+    @user.save!
+    redirect_to users_path
   end
 
   private

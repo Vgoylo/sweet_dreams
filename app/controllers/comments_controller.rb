@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
 
   def create
+    authorize Comment
     @comment = Comment.new(comment_params)
 
     if @comment.save
@@ -13,6 +14,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
+    authorize @comment
     @dream = @comment.dream
 
     if @comment.destroy

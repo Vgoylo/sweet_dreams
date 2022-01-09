@@ -2,6 +2,7 @@ class DreamsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
+    authorize Dream
     @dreams =
       if current_user.nil?
         Dream.where(private: false)
@@ -22,10 +23,12 @@ class DreamsController < ApplicationController
   end
 
   def new
+    authorize Dream
     @dream = Dream.new
   end
 
   def create
+    authorize Dream
     @dream = Dream.new(dream_params)
     @dream.user = current_user
     @dream.tag_ids = params[:post][:tag_ids]
@@ -39,18 +42,22 @@ class DreamsController < ApplicationController
   end
 
   def show
+    authorize Dream
     @dream = Dream.find(params[:id])
     @comment = Comment.new(dream: @dream, user_id: current_user.id)
     @dream_comments = @dream.comments.order(created_at: :desc)
     @reply = Reply.new(comment: @comment, user_id: current_user.id)
+    @comment_replies = Reply.all
   end
 
   def edit
     @dream = Dream.find(params[:id])
+    authorize @dream
   end
 
   def update
     @dream = Dream.find(params[:id])
+    authorize @dream
     @dream.user = current_user
     @dream.tag_ids = params[:post][:tag_ids]
     if @dream.update(dream_params)
@@ -64,6 +71,7 @@ class DreamsController < ApplicationController
 
   def destroy
     @dream = Dream.find(params[:id])
+    authorize @dream
 
     if @dream.destroy
       flash[:success] = 'Success'

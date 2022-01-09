@@ -15,18 +15,22 @@
         <th scope="col">
           <%= sort_link 'name' %>
         </th>
-        <th scope="col">Edit</th>
-        <th scope="col">Destroy</th>
       </tr>
     </thead>
     <tbody class="table table-striped">
       <% @users.each_with_index do |user, index| %>
-           <tr>
+          <tr>
             <th scope="row"><%= index + 1 %></th>
             <td><%= link_to user.email, user_path(user) %></td>
             <td><%= user.name %></td>
-            <td><%= link_to 'Edit', edit_user_path(user) %></td>
-            <td><%= link_to 'Destroy', user_path(user), method: :delete %></td>
+            <% if current_user.admin? %>
+              <% if user.blocked %>
+                <td><%= link_to 'Unblock', update_block_status_user_path(user), method: :patch %></td>
+              <% else %>
+                <td><%= link_to 'Block', update_block_status_user_path(user), method: :patch %></td>
+              <% end %>
+              <td><%= link_to 'Destroy', user_path(user), method: :delete %></td>
+            <% end %>
           </tr>
           <% end %>
     </tbody>
