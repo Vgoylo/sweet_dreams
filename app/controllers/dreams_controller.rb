@@ -42,6 +42,7 @@ class DreamsController < ApplicationController
     @dream = Dream.find(params[:id])
     @comment = Comment.new(dream: @dream, user_id: current_user.id)
     @dream_comments = @dream.comments.order(created_at: :desc)
+    @reply = Reply.new(comment: @comment, user_id: current_user.id)
   end
 
   def edit

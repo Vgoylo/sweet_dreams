@@ -13,10 +13,11 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
+    @dream = @comment.dream
 
     if @comment.destroy
       flash[:success] = 'Success'
-      redirect_to dream_path(dream_id)
+      redirect_to dream_path(@dream)
     else
       flash[:error] = 'Error'
     end

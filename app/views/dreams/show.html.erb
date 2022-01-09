@@ -40,10 +40,22 @@
                   <div class='col-10 d-flex flex-row-reverse'>
                     <%= link_to 'Delete', comment_path(comment), method: :delete, class: 'btn btn-danger' %>
                   </div>
-                 <% end %>
+                <% end %>
+
+                <%= form_for Reply.new(comment_id: comment.id, user_id: current_user.id), url: { controller: :replies, action: :create } do |f| %>
+                  <div class="field">
+                    <%= f.text_field :text, required: true, class: "form-control" %>
+                    <%= f.hidden_field :comment_id %>
+                  </div>
+                  <div class='col-10 d-flex flex-row-reverse'>
+                    <%= f.submit 'Reply', class:"btn btn-primary" %>
+                  </div>
+                <% end %>
               </div>
             </div>
           <% end %>
+
+
           <div class="container text-end">
             <div class="row">
               <div class="col-md-7">
