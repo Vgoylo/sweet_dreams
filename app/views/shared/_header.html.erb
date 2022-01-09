@@ -5,13 +5,13 @@
       <div>
        <div class='col-12 btn btn-primary'>Sweet Dreams</div>
       </div>
-      <div class='col-2 d-flex text-primary text-end'>
-        <%= Time.now.strftime("%d.%m.%Y %H:%M") %>
-      </div>
     </a>
+    <div class='col-2 d-flex text-primary'>
+      <%= Time.now.strftime("%d.%m.%Y %H:%M") %>
+    </div>
     <%= form_tag dreams_path, method: :get, class: "d-flex" do %>
       <%= text_field_tag :search, params[:search], class: "form-control me-2" %>
-      <%= submit_tag('Find dream', name: nil, class: 'btn btn-primary') %>
+      <%= submit_tag(t('find_dream'), name: nil, class: 'btn btn-primary') %>
     <% end %>
     <% if user_signed_in? %>
         <ul class="nav nav-pills">
@@ -42,10 +42,10 @@
         <% else %>
           <ul class="nav nav-pills">
           <li class="nav-item">
-            <%= link_to 'Login', new_user_session_path, class: "nav-link" %></td>
+            <%= link_to t('login_header'), new_user_session_path, class: "nav-link" %></td>
           </li>
           <li class="nav-item">
-            <%= link_to 'Register now', new_user_registration_path, class: "nav-link" %>
+            <%= link_to t('register_now'), new_user_registration_path, class: "nav-link" %>
           </li>
           </ul>
         <% end %>

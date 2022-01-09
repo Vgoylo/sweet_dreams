@@ -30,4 +30,19 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  login_label: "Please Log in"
+  email_label: 'Email'
+  password_label: 'Password'
+  remember_me_label: 'remember_me'
+  log_in: 'Log in'
+  sign_up_link_to: 'Sign up'
+  forgot_your_password?: 'Forgot your password?'
+  login_header: 'Login'
+  register_now: 'Register now'
+  find_dream: 'Find dream'
+  home_footer: 'Home'
+  users_footer: 'Users'
+  dreams_footer: 'Dreams'
+  categories_footer: 'Categories'
+  about_footer: 'About'
+  back_to_top: 'Back to top'
