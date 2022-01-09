@@ -1,0 +1,19 @@
+ru:
+  login_label: "Пожалуйста войдите"
+  email_label: 'Почта'
+  password_label: 'Пароль'
+  remember_me_label: 'Запомнить меня'
+  log_in: 'Авторизоваться'
+  sign_up_link_to: 'Зарегистрироваться'
+  forgot_your_password?: 'Забыли Ваш пароль?'
+  login_header: 'Авторизоваться'
+  register_now: 'Зарегестрируйтесь сейчас'
+  find_dream: 'Поиск по снам'
+  home_footer: 'Домашняя страница'
+  users_footer: 'Ползователи'
+  dreams_footer: 'Сновидение'
+  categories_footer: 'Категории'
+  about_footer: 'О нас'
+  back_to_top: 'Вернуться к началу'
+
+

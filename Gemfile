@@ -55,8 +55,9 @@ gem "paperclip", "~> 6.0.0"
 gem 'kaminari'
 gem 'bootstrap5-kaminari-views'
 gem 'ckeditor'
-gem "mini_magick"
+gem 'mini_magick'
 gem 'momentjs-rails'
 gem 'rails_bootstrap_sortable'
 gem 'plyr-rails'
-gem "pundit"
+gem 'pundit'
+gem 'rails-i18n', '~> 6'
