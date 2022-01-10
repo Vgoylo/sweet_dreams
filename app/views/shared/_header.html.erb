@@ -9,6 +9,15 @@
     <div class='col-2 d-flex text-primary'>
       <%= Time.now.strftime("%d.%m.%Y %H:%M") %>
     </div>
+    <% unless current_user %>
+      <div class='col-2 text-primary'>
+        <ul>
+          <li><%= link_to 'English', root_path(locale: :en) %> </li>
+          <li><%= link_to 'Русский', root_path(locale: :ru) %> </li>
+        </ul>
+      </div>
+    <% end %>
+
     <%= form_tag dreams_path, method: :get, class: "d-flex" do %>
       <%= text_field_tag :search, params[:search], class: "form-control me-2" %>
       <%= submit_tag(t('find_dream'), name: nil, class: 'btn btn-primary') %>
