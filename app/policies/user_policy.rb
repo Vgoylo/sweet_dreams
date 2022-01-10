@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserPolicy < ApplicationPolicy
   def edit?
     user.id == record.id
@@ -15,11 +17,9 @@ class UserPolicy < ApplicationPolicy
     user.admin?
   end
 
-
   def update_block_status?
     user.admin?
   end
-
 
   def update?
     edit?

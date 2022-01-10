@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DreamsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
@@ -14,12 +16,12 @@ class DreamsController < ApplicationController
         Dream.by_user(current_user.id).or(Dream.where(private: false))
       end.order("#{sort_column} #{sort_direction}")
 
-   if  params[:search]
-    search = params[:search]
-    @dreams = @dreams.where('title like ? or description like ?', "%#{search}%", "%#{search}%")
-   end
+    if params[:search]
+      search = params[:search]
+      @dreams = @dreams.where('title like ? or description like ?', "%#{search}%", "%#{search}%")
+    end
 
-   @dreams = @dreams.page params[:page]
+    @dreams = @dreams.page params[:page]
   end
 
   def new
@@ -84,7 +86,8 @@ class DreamsController < ApplicationController
   private
 
   def dream_params
-    params.require(:dream).permit(:title, :description, :dream_date, :interval, :private, :image, :category_id, :search, tag_ids: [])
+    params.require(:dream).permit(:title, :description, :dream_date, :interval, :private, :image, :category_id,
+                                  :search, tag_ids: [])
   end
 
   def sortable_columns
@@ -92,10 +95,10 @@ class DreamsController < ApplicationController
   end
 
   def sort_column
-    sortable_columns.include?(params[:column]) ? params[:column] : "title"
+    sortable_columns.include?(params[:column]) ? params[:column] : 'title'
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end

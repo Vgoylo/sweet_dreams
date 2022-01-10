@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 # Add users
 20.times do |t|
   User.create(
     name: "Name #{t}",
     email: "example#{t}@example.com",
     password: '123456',
-    password_confirmation: '123456')
+    password_confirmation: '123456'
+  )
 end
 
 puts 'Users have been created'
@@ -23,7 +26,6 @@ end
 
 puts 'Tags have been created'
 
-
 # Add dreams
 User.all.each do |user|
   categories_ids = Category.pluck(:id)
@@ -35,7 +37,7 @@ User.all.each do |user|
       category_id: categories_ids.sample,
       user_id: user.id,
       dream_date: Time.now,
-      interval: "22:30-06:30"
+      interval: '22:30-06:30'
     )
 
     tags.sample(2).each do |tag|

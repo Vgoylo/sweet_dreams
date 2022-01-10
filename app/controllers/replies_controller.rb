@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RepliesController < ApplicationController
   def create
     authorize Reply

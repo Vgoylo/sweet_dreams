@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
   helper_method :sort_column, :sort_direction
@@ -70,10 +72,10 @@ class CategoriesController < ApplicationController
   end
 
   def sort_column
-    sortable_columns.include?(params[:column]) ? params[:column] : "name"
+    sortable_columns.include?(params[:column]) ? params[:column] : 'name'
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end

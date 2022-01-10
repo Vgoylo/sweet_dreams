@@ -1,5 +1,6 @@
-class CommentsController < ApplicationController
+# frozen_string_literal: true
 
+class CommentsController < ApplicationController
   def create
     authorize Comment
     @comment = Comment.new(comment_params)

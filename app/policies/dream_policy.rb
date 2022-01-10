@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DreamPolicy < ApplicationPolicy
   def index?
     !user.blocked

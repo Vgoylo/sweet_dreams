@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RenameNoteTagsToDreamTags < ActiveRecord::Migration[6.1]
   def change
     rename_table :note_tags, :dream_tags
