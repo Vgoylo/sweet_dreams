@@ -16,4 +16,14 @@ class Dream < ApplicationRecord
   paginates_per 10
 
   scope :by_user, ->(user_id) { where(user_id: user_id) }
+
+  before_save :validacion_description
+
+  private
+
+  def validacion_description
+    if description.include?('</script>')
+      self.description = description.split('').shuffle
+    end
+  end
 end
