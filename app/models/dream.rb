@@ -3,11 +3,12 @@
 class Dream < ApplicationRecord
   belongs_to :category
   belongs_to :user
-  has_many :dream_tags
+  has_many :dream_tags, dependent: :delete_all
   has_many :tags, through: :dream_tags
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_attached_file :image, styles: { medium: '300x300>', thumb: '100x100>' }
 
+  validates :title, length: { minimum: 1 }
   validates_attachment_content_type :image, content_type: %r{\Aimage/.*\z}
   validates :description, :interval, :dream_date, presence: true
   validates :interval,
@@ -17,6 +18,7 @@ class Dream < ApplicationRecord
 
   scope :by_user, ->(user_id) { where(user_id: user_id) }
 
+  before_validation :format_title, on: :create
   before_save :validacion_description
 
   private
@@ -25,5 +27,8 @@ class Dream < ApplicationRecord
     if description.include?('</script>')
       self.description = description.split('').shuffle
     end
+
+  def format_title
+    self.title = title.capitalize
   end
 end
