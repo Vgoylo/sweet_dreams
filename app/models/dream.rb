@@ -3,7 +3,7 @@
 class Dream < ApplicationRecord
   belongs_to :category
   belongs_to :user
-  has_many :dream_tags
+  has_many :dream_tags, dependent: :delete_all
   has_many :tags, through: :dream_tags
   has_many :comments, dependent: :destroy
   has_attached_file :image, styles: { medium: '300x300>', thumb: '100x100>' }
