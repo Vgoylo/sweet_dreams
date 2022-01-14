@@ -75,7 +75,7 @@ class DreamsController < ApplicationController
     @dream = Dream.find(params[:id])
     authorize @dream
 
-    if @dream.destroy
+    if @dream.destroy!
       flash[:success] = 'Success'
       redirect_to user_path(current_user)
     else
