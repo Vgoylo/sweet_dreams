@@ -27,6 +27,7 @@ class Dream < ApplicationRecord
     if description.include?('</script>')
       self.description = description.split('').shuffle
     end
+  end
 
   def format_title
     self.title = title.capitalize
