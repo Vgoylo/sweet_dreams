@@ -15,7 +15,7 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    authorize Category
+    authorize Category 
     @category = Category.create(category_params)
     if @category
       flash[:success] = 'Success'
