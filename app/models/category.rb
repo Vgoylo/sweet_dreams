@@ -10,6 +10,6 @@ class Category < ApplicationRecord
   private
 
   def format_name
-    self.title = title.capitalize
+    self.name = name.capitalize
   end
 end
