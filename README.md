@@ -10,31 +10,21 @@ his application allows users to register and leave a description of their dream.
 ### ~ Deram :
    *  dreams can be private or public
 ### ~ Comment :
-  *  Comments can only be left by registered users
+  *  Comments can onlya
 ### ~ Category :
   *  categories can only be created by the admin
 ### ~ Reply :
   *  can only be left by registered users
 ### ~ Tag
 ___
+## Opportunities for the user registered users
 
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### ~ User :
+```
+   * stop your sleep
+   * Editing self dreams
+   * Make your dreams private
+   * Edit your dreams
+   * Enjoy your dreams
+```
+___
