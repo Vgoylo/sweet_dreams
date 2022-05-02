@@ -1,7 +1,7 @@
 class SendFileEmailJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
-    # Do something later
+  def perform(user)
+    puts "Hello #{user} this your profile. You can edit self profile"
   end
 end
