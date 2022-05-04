@@ -3,6 +3,6 @@ class RandomJob < ApplicationJob
 
   def perform(user)
     sleep(20.seconds)
-    puts "Hello #{user} this is a random job"
+    puts "Hello you changed status #{user} "
   end
 end

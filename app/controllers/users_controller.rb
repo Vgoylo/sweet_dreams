@@ -25,7 +25,6 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    RandomJob.perform_later(@user.name)
     authorize @user
   end
 

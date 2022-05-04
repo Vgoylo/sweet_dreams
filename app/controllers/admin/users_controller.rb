@@ -19,6 +19,7 @@
       @user = User.find(params[:id])
       @user.blocked = !@user.blocked
       @user.save!
+      RandomJob.perform_later(@user.email)
       redirect_to admin_users_path
     end
 
