@@ -9,12 +9,8 @@ Rails.application.routes.draw do
     get 'home/index'
     devise_for :users
 
-<<<<<<< HEAD
     resources :users 
     
-=======
-    resources :users
->>>>>>> 7597bf55ccbfa4fcfe9b4a530cabdd2cd72d9005
     resources :dreams
     resources :categories
     resources :tags
