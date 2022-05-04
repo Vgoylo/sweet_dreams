@@ -1,16 +1,20 @@
 # frozen_string_literal: true
+
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-
   scope '(:locale)', locale: /#{I18n.available_locales.join("|")}/ do
     mount Sidekiq::Web => '/sidekiq'
     mount Ckeditor::Engine => '/ckeditor'
     get 'home/index'
     devise_for :users
 
+<<<<<<< HEAD
     resources :users 
     
+=======
+    resources :users
+>>>>>>> 7597bf55ccbfa4fcfe9b4a530cabdd2cd72d9005
     resources :dreams
     resources :categories
     resources :tags
