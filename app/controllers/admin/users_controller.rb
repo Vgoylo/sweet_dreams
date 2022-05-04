@@ -1,13 +1,10 @@
-# frozen_string_literal: true
-
-module Admin
-  class UsersController < ApplicationController
+  class Admin::UsersController < ApplicationController
     # before_action :authenticate_user!
     helper_method :sort_column, :sort_direction
 
     def index
       authorize User
-      @users = User.where.not(id: current_user.id).page(params[:page]).order("#{sort_column} #{sort_direction}")
+      @users = User.where.not("role = 1 OR id = #{current_user.id}").page(params[:page]).order("#{sort_column} #{sort_direction}")
 
       if params[:search]
         search = params[:search]
@@ -43,4 +40,3 @@ module Admin
       %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
     end
   end
-end

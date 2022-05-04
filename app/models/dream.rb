@@ -24,9 +24,7 @@ class Dream < ApplicationRecord
   private
 
   def validacion_description
-    if description.include?('</script>')
-      self.description = description.split('').shuffle
-    end
+    self.description = description.split('').shuffle if description.include?('</script>')
   end
 
   def format_title
