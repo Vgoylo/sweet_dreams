@@ -19,6 +19,7 @@ class UsersController < ApplicationController
   def show
     authorize User
     @user = User.find(params[:id])
+    TestJob.perform_at(1.minutes, @user.id, Time.zone.parse('13-04-2022'), Time.zone.parse('15-04-2022'))
     @dreams = @user.dreams
   end
 
