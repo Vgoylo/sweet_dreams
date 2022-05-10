@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def index
     authorize User
-    @users = User.all.page(params[:page]).order("#{sort_column} #{sort_direction}")
+    @users = User.where.not("role = 1 OR id = #{current_user.id}").page(params[:page]).order("#{sort_column} #{sort_direction}")
 
     if params[:search]
       search = params[:search]
@@ -19,7 +19,9 @@ class UsersController < ApplicationController
   def show
     authorize User
     @user = User.find(params[:id])
-    TestJob.perform_at(1.minutes, @user.id, Time.zone.parse('13-04-2022'), Time.zone.parse('15-04-2022'))
+
+    SendFileEmailJob.set(wait: 1.minutes).perform_later(@user.name)
+
     @dreams = @user.dreams
   end
 
@@ -51,14 +53,6 @@ class UsersController < ApplicationController
     else
       flash[:error] = 'Error'
     end
-  end
-
-  def update_block_status
-    authorize User
-    @user = User.find(params[:id])
-    @user.blocked = !@user.blocked
-    @user.save!
-    redirect_to users_path
   end
 
   private
