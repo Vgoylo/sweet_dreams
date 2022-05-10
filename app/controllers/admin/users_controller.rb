@@ -19,9 +19,7 @@
       @user = User.find(params[:id])
       @user.blocked = !@user.blocked
       @user.save!
-
       RandomJob.perform_later(@user.id, Time.zone.parse('01-04-2022'), Time.zone.parse('03-04-2022'))
-
       redirect_to admin_users_path
     end
 
