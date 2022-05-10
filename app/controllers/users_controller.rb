@@ -19,7 +19,9 @@ class UsersController < ApplicationController
   def show
     authorize User
     @user = User.find(params[:id])
+
     SendFileEmailJob.set(wait: 1.minutes).perform_later(@user.name)
+
     @dreams = @user.dreams
   end
 
