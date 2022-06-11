@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,136 +10,132 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_104_134_953) do
+ActiveRecord::Schema.define(version: 2022_01_04_134953) do
+
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
 
-  create_table 'active_storage_attachments', force: :cascade do |t|
-    t.string 'name', null: false
-    t.string 'record_type', null: false
-    t.bigint 'record_id', null: false
-    t.bigint 'blob_id', null: false
-    t.datetime 'created_at', null: false
-    t.index ['blob_id'], name: 'index_active_storage_attachments_on_blob_id'
-    t.index %w[record_type record_id name blob_id], name: 'index_active_storage_attachments_uniqueness',
-                                                    unique: true
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table 'active_storage_blobs', force: :cascade do |t|
-    t.string 'key', null: false
-    t.string 'filename', null: false
-    t.string 'content_type'
-    t.text 'metadata'
-    t.string 'service_name', null: false
-    t.bigint 'byte_size', null: false
-    t.string 'checksum', null: false
-    t.datetime 'created_at', null: false
-    t.index ['key'], name: 'index_active_storage_blobs_on_key', unique: true
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table 'active_storage_variant_records', force: :cascade do |t|
-    t.bigint 'blob_id', null: false
-    t.string 'variation_digest', null: false
-    t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table 'categories', force: :cascade do |t|
-    t.string 'name', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table 'ckeditor_assets', force: :cascade do |t|
-    t.string 'data_file_name', null: false
-    t.string 'data_content_type'
-    t.integer 'data_file_size'
-    t.string 'data_fingerprint'
-    t.string 'type', limit: 30
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['type'], name: 'index_ckeditor_assets_on_type'
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string "data_file_name", null: false
+    t.string "data_content_type"
+    t.integer "data_file_size"
+    t.string "data_fingerprint"
+    t.string "type", limit: 30
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type"], name: "index_ckeditor_assets_on_type"
   end
 
-  create_table 'comments', force: :cascade do |t|
-    t.bigint 'user_id', null: false
-    t.string 'text', null: false
-    t.bigint 'dream_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['dream_id'], name: 'index_comments_on_dream_id'
-    t.index ['user_id'], name: 'index_comments_on_user_id'
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "text", null: false
+    t.bigint "dream_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dream_id"], name: "index_comments_on_dream_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table 'dream_tags', force: :cascade do |t|
-    t.bigint 'dream_id', null: false
-    t.bigint 'tag_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['dream_id'], name: 'index_dream_tags_on_dream_id'
-    t.index ['tag_id'], name: 'index_dream_tags_on_tag_id'
+  create_table "dream_tags", force: :cascade do |t|
+    t.bigint "dream_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dream_id"], name: "index_dream_tags_on_dream_id"
+    t.index ["tag_id"], name: "index_dream_tags_on_tag_id"
   end
 
-  create_table 'dreams', force: :cascade do |t|
-    t.date 'dream_date', null: false
-    t.string 'interval', null: false
-    t.string 'title', default: 'Untitled'
-    t.string 'description', null: false
-    t.bigint 'category_id', null: false
-    t.bigint 'user_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.boolean 'private', default: false, null: false
-    t.string 'image_file_name'
-    t.integer 'image_file_size'
-    t.string 'image_content_type'
-    t.datetime 'image_updated_at'
-    t.index ['category_id'], name: 'index_dreams_on_category_id'
-    t.index ['user_id'], name: 'index_dreams_on_user_id'
+  create_table "dreams", force: :cascade do |t|
+    t.date "dream_date", null: false
+    t.string "interval", null: false
+    t.string "title", default: "Untitled"
+    t.string "description", null: false
+    t.bigint "category_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "private", default: false, null: false
+    t.string "image_file_name"
+    t.integer "image_file_size"
+    t.string "image_content_type"
+    t.datetime "image_updated_at"
+    t.index ["category_id"], name: "index_dreams_on_category_id"
+    t.index ["user_id"], name: "index_dreams_on_user_id"
   end
 
-  create_table 'replies', force: :cascade do |t|
-    t.bigint 'user_id', null: false
-    t.string 'text', null: false
-    t.bigint 'comment_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['comment_id'], name: 'index_replies_on_comment_id'
-    t.index ['user_id'], name: 'index_replies_on_user_id'
+  create_table "replies", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "text", null: false
+    t.bigint "comment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["comment_id"], name: "index_replies_on_comment_id"
+    t.index ["user_id"], name: "index_replies_on_user_id"
   end
 
-  create_table 'tags', force: :cascade do |t|
-    t.string 'name', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.boolean 'blocked', default: false
-    t.integer 'role', default: 0
-    t.string 'name', default: '', null: false
-    t.string 'email', default: '', null: false
-    t.string 'encrypted_password', default: '', null: false
-    t.string 'reset_password_token'
-    t.datetime 'reset_password_sent_at'
-    t.datetime 'remember_created_at'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.string 'avatar_file_name'
-    t.integer 'avatar_file_size'
-    t.string 'avatar_content_type'
-    t.datetime 'avatar_updated_at'
-    t.index ['email'], name: 'index_users_on_email', unique: true
-    t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
+  create_table "users", force: :cascade do |t|
+    t.boolean "blocked", default: false
+    t.integer "role", default: 0
+    t.string "name", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
-  add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
-  add_foreign_key 'comments', 'dreams'
-  add_foreign_key 'comments', 'users'
-  add_foreign_key 'dream_tags', 'dreams'
-  add_foreign_key 'dream_tags', 'tags'
-  add_foreign_key 'dreams', 'categories'
-  add_foreign_key 'dreams', 'users'
-  add_foreign_key 'replies', 'comments'
-  add_foreign_key 'replies', 'users'
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "dreams"
+  add_foreign_key "comments", "users"
+  add_foreign_key "dream_tags", "dreams"
+  add_foreign_key "dream_tags", "tags"
+  add_foreign_key "dreams", "categories"
+  add_foreign_key "dreams", "users"
+  add_foreign_key "replies", "comments"
+  add_foreign_key "replies", "users"
 end
