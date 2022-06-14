@@ -1,5 +1,6 @@
 class GetsDreamsInTheIntervalSidekiqJob
   include Sidekiq::Job
+  sidekiq_options queue: 'critical'
 
   def perform(user_id, start_at, until_at)
     user = User.find(user_id)

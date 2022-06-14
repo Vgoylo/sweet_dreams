@@ -1,3 +1,5 @@
-queues:
+:queues:
+  - critical
   - default
+  - low
 :max_retrise: 5
