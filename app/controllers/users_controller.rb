@@ -19,13 +19,13 @@ class UsersController < ApplicationController
   def show
     authorize User
     @user = User.find(params[:id])
-    SendFileEmailJob.set(wait: 1.minutes).perform_later(@user.name)
+    SendMessageEmailJob.set(wait: 1.minutes).perform_later(@user.name)
     @dreams = @user.dreams
   end
 
   def edit
     @user = User.find(params[:id])
-    TestJob.perform_at(1.minutes, @user.id, Time.zone.parse('13-04-2022'), Time.zone.parse('15-04-2022'))
+    GetsDreamsInTheIntervalSidekiqJob.perform_at(1.minutes, @user.id, Time.zone.parse('13-04-2022'), Time.zone.now)
     authorize @user
   end
 
@@ -34,6 +34,7 @@ class UsersController < ApplicationController
     authorize @user
 
     if @user.update(user_params)
+      SendMessageSidekiqJob.set(wait: 1.minutes).perform_at(1.minutes, @user.name)
       flash[:success] = 'Success'
       redirect_to user_path(@user)
     else

@@ -1,4 +1,4 @@
-class TestJob
+class GetsDreamsInTheIntervalSidekiqJob
   include Sidekiq::Job
 
   def perform(user_id, start_at, until_at)
