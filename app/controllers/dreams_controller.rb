@@ -34,6 +34,7 @@ class DreamsController < ApplicationController
     @dream = Dream.new(dream_params)
     @dream.user = current_user
     @dream.tag_ids = params[:post][:tag_ids]
+    SendMessageNewDreamSidekiqJob.set(wait: 1.minutes).perform_at(1.minutes, @dream.user.name )
     if @dream.save
       flash[:success] = 'Success'
       redirect_to user_path(current_user)
