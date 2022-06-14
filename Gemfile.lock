@@ -306,7 +306,7 @@ DEPENDENCIES
   rails-i18n (~> 6)
   rails_bootstrap_sortable
   rubocop
-  sass-rails (>= 6)
+  sass-rails
   sidekiq
   spring
   turbolinks (~> 5)
