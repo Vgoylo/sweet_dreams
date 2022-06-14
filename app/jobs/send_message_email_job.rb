@@ -1,4 +1,4 @@
-class SendFileEmailJob < ApplicationJob
+class SendMessageEmailJob < ApplicationJob
   queue_as :default
 
   def perform(user)

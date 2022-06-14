@@ -1,0 +1,114 @@
+From 47c8238fe4aa4da4cc98c21eb44ba6b628705906 Mon Sep 17 00:00:00 2001
+From: Pavel Bonda <bondek777@gmail.com>
+Date: Tue, 14 Jun 2022 13:56:02 +0300
+Subject: [PATCH] Patch for sidekiq
+
+---
+ app/controllers/dreams_controller.rb                       | 1 +
+ app/controllers/users_controller.rb                        | 5 +++--
+ .../{send_file_email_job.rb => send_message_email_job.rb}  | 2 +-
+ ...t_job.rb => gets_dreams_in_the_interval_sidekiq_job.rb} | 2 +-
+ app/sidekiq/send_message_new_dream_sidekiq_job.rb          | 7 +++++++
+ app/sidekiq/send_message_sidekiq_job.rb                    | 7 +++++++
+ 6 files changed, 20 insertions(+), 4 deletions(-)
+ rename app/jobs/{send_file_email_job.rb => send_message_email_job.rb} (73%)
+ rename app/sidekiq/{test_job.rb => gets_dreams_in_the_interval_sidekiq_job.rb} (82%)
+ create mode 100644 app/sidekiq/send_message_new_dream_sidekiq_job.rb
+ create mode 100644 app/sidekiq/send_message_sidekiq_job.rb
+
+diff --git a/app/controllers/dreams_controller.rb b/app/controllers/dreams_controller.rb
+index 6fb4f20..ea94141 100644
+--- a/app/controllers/dreams_controller.rb
++++ b/app/controllers/dreams_controller.rb
+@@ -34,6 +34,7 @@ class DreamsController < ApplicationController
+     @dream = Dream.new(dream_params)
+     @dream.user = current_user
+     @dream.tag_ids = params[:post][:tag_ids]
++    SendMessageNewDreamSidekiqJob.set(wait: 1.minutes).perform_at(1.minutes, @dream.user.name )
+     if @dream.save
+       flash[:success] = 'Success'
+       redirect_to user_path(current_user)
+diff --git a/app/controllers/users_controller.rb b/app/controllers/users_controller.rb
+index a141b41..fe85863 100644
+--- a/app/controllers/users_controller.rb
++++ b/app/controllers/users_controller.rb
+@@ -19,13 +19,13 @@ class UsersController < ApplicationController
+   def show
+     authorize User
+     @user = User.find(params[:id])
+-    SendFileEmailJob.set(wait: 1.minutes).perform_later(@user.name)
++    SendMessageEmailJob.set(wait: 1.minutes).perform_later(@user.name)
+     @dreams = @user.dreams
+   end
+ 
+   def edit
+     @user = User.find(params[:id])
+-    TestJob.perform_at(1.minutes, @user.id, Time.zone.parse('13-04-2022'), Time.zone.parse('15-04-2022'))
++    GetsDreamsInTheIntervalSidekiqJob.perform_at(1.minutes, @user.id, Time.zone.parse('13-04-2022'), Time.zone.now)
+     authorize @user
+   end
+ 
+@@ -34,6 +34,7 @@ class UsersController < ApplicationController
+     authorize @user
+ 
+     if @user.update(user_params)
++      SendMessageSidekiqJob.set(wait: 1.minutes).perform_at(1.minutes, @user.name)
+       flash[:success] = 'Success'
+       redirect_to user_path(@user)
+     else
+diff --git a/app/jobs/send_file_email_job.rb b/app/jobs/send_message_email_job.rb
+similarity index 73%
+rename from app/jobs/send_file_email_job.rb
+rename to app/jobs/send_message_email_job.rb
+index 2037307..1398b61 100644
+--- a/app/jobs/send_file_email_job.rb
++++ b/app/jobs/send_message_email_job.rb
+@@ -1,4 +1,4 @@
+-class SendFileEmailJob < ApplicationJob
++class SendMessageEmailJob < ApplicationJob
+   queue_as :default
+ 
+   def perform(user)
+diff --git a/app/sidekiq/test_job.rb b/app/sidekiq/gets_dreams_in_the_interval_sidekiq_job.rb
+similarity index 82%
+rename from app/sidekiq/test_job.rb
+rename to app/sidekiq/gets_dreams_in_the_interval_sidekiq_job.rb
+index ec39a02..0fb0046 100644
+--- a/app/sidekiq/test_job.rb
++++ b/app/sidekiq/gets_dreams_in_the_interval_sidekiq_job.rb
+@@ -1,4 +1,4 @@
+-class TestJob
++class GetsDreamsInTheIntervalSidekiqJob
+   include Sidekiq::Job
+ 
+   def perform(user_id, start_at, until_at)
+diff --git a/app/sidekiq/send_message_new_dream_sidekiq_job.rb b/app/sidekiq/send_message_new_dream_sidekiq_job.rb
+new file mode 100644
+index 0000000..e598b29
+--- /dev/null
++++ b/app/sidekiq/send_message_new_dream_sidekiq_job.rb
+@@ -0,0 +1,7 @@
++class SendMessageNewDreamSidekiqJob
++  include Sidekiq::Job
++
++  def perform(user)
++    puts "Hello #{user} Your created new dream"
++  end
++end
+\ No newline at end of file
+diff --git a/app/sidekiq/send_message_sidekiq_job.rb b/app/sidekiq/send_message_sidekiq_job.rb
+new file mode 100644
+index 0000000..7884920
+--- /dev/null
++++ b/app/sidekiq/send_message_sidekiq_job.rb
+@@ -0,0 +1,7 @@
++class SendMessageSidekiqJob
++  include Sidekiq::Job
++
++  def perform(user)
++    puts "Hello #{user} Your edit self profile"
++  end
++end
+-- 
+2.25.1
+
