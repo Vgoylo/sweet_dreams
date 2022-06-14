@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DeleteDreamsSidekiqJob
   include Sidekiq::Job
   sidekiq_options queue: 'critical'
