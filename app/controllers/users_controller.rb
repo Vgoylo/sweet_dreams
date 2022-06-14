@@ -19,13 +19,16 @@ class UsersController < ApplicationController
   def show
     authorize User
     @user = User.find(params[:id])
-    SendMessageEmailJob.set(wait: 1.minutes).perform_later(@user.name)
+    # SendMessageEmailJob.set(wait: 1.minutes).perform_later(@user.name)
+    # GetsDreamsInTheIntervalSidekiqJob.perform_at(1.minutes, @user.id, Time.zone.parse('13-04-2022'), Time.zone.now)
     @dreams = @user.dreams
   end
 
   def edit
     @user = User.find(params[:id])
+    SendMessageEmailJob.perform_later(@user.name)
     GetsDreamsInTheIntervalSidekiqJob.perform_at(1.minutes, @user.id, Time.zone.parse('13-04-2022'), Time.zone.now)
+    SendMessageSidekiqJob.set(wait: 1.minutes).perform_at(1.minutes, @user.name)
     authorize @user
   end
 

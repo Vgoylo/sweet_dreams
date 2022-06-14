@@ -75,6 +75,7 @@ class DreamsController < ApplicationController
   def destroy
     @dream = Dream.find(params[:id])
     authorize @dream
+    DeleteDreamsSidekiqJob.perform_at(1.minutes, current_user.id, Time.zone.parse('13-04-2022'), Time.zone.now)
 
     if @dream.destroy!
       flash[:success] = 'Success'
