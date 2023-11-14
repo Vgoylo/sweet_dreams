@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2022_01_04_134953) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-<<<<<<< Updated upstream
+
   create_table 'users', force: :cascade do |t|
     t.boolean 'blocked', default: false
     t.integer 'role', default: 0
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 2022_01_04_134953) do
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['email'], name: 'index_users_on_email', unique: true
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
-=======
+
   create_table "users", force: :cascade do |t|
     t.boolean "blocked", default: false
     t.integer "role", default: 0
@@ -139,9 +139,14 @@ ActiveRecord::Schema.define(version: 2022_01_04_134953) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "avatar_file_name"
+    t.integer "avatar_file_size"
+    t.string "avatar_content_type"
+    t.datetime "avatar_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
->>>>>>> Stashed changes
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

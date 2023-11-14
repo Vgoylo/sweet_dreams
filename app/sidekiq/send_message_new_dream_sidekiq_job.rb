@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 class SendMessageNewDreamSidekiqJob
   include Sidekiq::Job
   sidekiq_options queue: 'low'
