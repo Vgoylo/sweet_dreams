@@ -70,11 +70,8 @@ class DreamsController < ApplicationController
 
   def destroy
     authorize @dream
-<<<<<<< Updated upstream
-=======
     DeleteDreamsSidekiqJob.perform_at(1.minutes.from_now, current_user.id,
                                       Time.zone.parse('13-04-2022'), Time.zone.now)
->>>>>>> Stashed changes
 
     if @dream.destroy!
       flash_success
