@@ -36,7 +36,10 @@ class CategoriesController < ApplicationController
   def show
     authorize Category
 
-    rendor json: @category
+    respond_to do |format|
+      format.html #show
+      format.json { render json: @category }
+    end
   end
 
   def edit

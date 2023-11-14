@@ -45,7 +45,7 @@ class DreamsController < ApplicationController
 
   def show
     authorize Dream
-    find_dream_by_id
+
     @comment = Comment.new(dream: @dream, user_id: current_user.id)
     @dream_comments = @dream.comments.order(created_at: :desc)
     @reply = Reply.new(comment: @comment, user_id: current_user.id)
