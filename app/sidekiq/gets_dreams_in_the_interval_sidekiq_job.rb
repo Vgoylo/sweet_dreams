@@ -1,3 +1,6 @@
+
+# frozen_string_literal: true
+
 class GetsDreamsInTheIntervalSidekiqJob
   include Sidekiq::Job
   sidekiq_options queue: 'critical'

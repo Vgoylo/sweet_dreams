@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DeleteDreamsSidekiqJob
   include Sidekiq::Job
   sidekiq_options queue: 'critical'
@@ -8,3 +10,4 @@ class DeleteDreamsSidekiqJob
     p user.dreams.where("created_at >= '#{start_at}' AND created_at <= '#{until_at}'")
   end
 end
+

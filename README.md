@@ -28,3 +28,47 @@ ___
    * Enjoy your dreams
 ```
 ___
+
+<<<<<<< Updated upstream
+## To run:
+---
+```rb
+  bundle exec rails db:create db:migrate db:seed
+```
+---
+
+* ## [mailcatcher](https://mailcatcher.me/)
+```
+  sudo gem install mailcatcher
+
+  mailcatcher
+```
+---
+
+* ## [installation instructions redis](https://www.arubacloud.com/tutorial/how-to-install-and-configure-redis-on-ubuntu-20-04.aspx)
+```
+  sudo apt install redis-server
+  bundle exec sidekiq
+  bundle exec rails s
+=======
+### To run:
+
+```rb
+bundle exec rails db:create db:migrate db:seed
+```
+---
+* ## [mailcatcher](https://mailcatcher.me/)
+```
+     sudo gem install mailcatcher
+     mailcatcher
+```
+---
+* ## [installation instructions redis](https://www.arubacloud.com/tutorial/how-to-install-and-configure-redis-on-ubuntu-20-04.aspx)
+
+```
+    sudo apt install redis-server
+    bundle exec sidekiq
+    bundle exec rails s
+>>>>>>> Stashed changes
+```
+---

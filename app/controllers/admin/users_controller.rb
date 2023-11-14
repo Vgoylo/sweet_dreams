@@ -1,4 +1,7 @@
-  class Admin::UsersController < ApplicationController
+# frozen_string_literal: true
+
+module Admin
+  class UsersController < ApplicationController
     # before_action :authenticate_user!
     helper_method :sort_column, :sort_direction
 
@@ -41,3 +44,4 @@
       %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
     end
   end
+end
