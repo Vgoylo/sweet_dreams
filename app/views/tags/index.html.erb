@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody class="table table-striped">
-      <% @tag.each_with_index do |tag, index| %>
+      <% @tags.each_with_index do |tag, index| %>
         <tr>
           <th scope="row"><%= index + 1 %></th>
           <td><%= link_to tag.name, tag_path(tag) %></td>
@@ -25,7 +25,7 @@
     </tbody>
   </table>
   <div class= "container col-md-5">
-    <%= paginate @tag,
+    <%= paginate @tags,
                 theme: 'bootstrap-5',
                 pagination_class: "pagination-sm flex-wrap justify-content-center",
                 nav_class: "d-inline-block" %>

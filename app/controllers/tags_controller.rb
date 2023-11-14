@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
 class TagsController < ApplicationController
+  include Sort
+
+  before_action :sort_column, :sort_direction, only: %i[index]
+  before_action :tag_find, only: %i[show edit update destroy]
+
   helper_method :sort_column, :sort_direction
 
   def index
     authorize Tag
-    @tag = Tag.all.page(params[:page]).order("#{sort_column} #{sort_direction}").page params[:page]
+    @tags = TagsListQuery.all_tags
+    @tags = paginate_array_page
   end
 
   def new
@@ -27,17 +33,14 @@ class TagsController < ApplicationController
 
   def show
     authorize Tag
-    @tag = Tag.find(params[:id])
   end
 
   def edit
     authorize Tag
-    @tag = Tag.find(params[:id])
   end
 
   def update
     authorize Tag
-    @tag = Tag.find(params[:id])
 
     if @tag.update(tag_params)
       flash[:success] = 'Success'
@@ -50,7 +53,6 @@ class TagsController < ApplicationController
 
   def destroy
     authorize Tag
-    @tag = Tag.find(params[:id])
 
     if @tag.destroy
       flash[:success] = 'Success'
@@ -62,19 +64,19 @@ class TagsController < ApplicationController
 
   private
 
+  def paginate_array_page
+    Kaminari.paginate_array(@tags).page(params[:page]).per(5)
+  end
+
+  def tag_find
+    @tag = Tag.find(params[:id])
+  end
+
   def tag_params
     params.require(:tag).permit(:name)
   end
 
   def sortable_columns
     %w[name].freeze
-  end
-
-  def sort_column
-    sortable_columns.include?(params[:column]) ? params[:column] : 'name'
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end

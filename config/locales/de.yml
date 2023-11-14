@@ -1,0 +1,17 @@
+de:
+  login_label: "Bitte anmelden"
+  email_label: 'Mail'
+  password_label: 'Passwort'
+  remember_me_label: 'Erinnere dich an mich'
+  log_in: 'Einloggen'
+  sign_up_link_to: 'Registrieren'
+  forgot_your_password?: 'Passwort vergessen?'
+  login_header: 'Anmelden'
+  register_now: 'Jetzt registrieren'
+  find_dream: 'Suche nach Träumen'
+  home_footer: 'Homepage'
+  users_footer: 'Benutzer'
+  dreams_footer: 'Traum'
+  categories_footer: 'Kategorien'
+  about_footer: 'Über uns'
+  back_to_top: 'Zurück nach oben'

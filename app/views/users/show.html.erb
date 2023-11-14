@@ -4,6 +4,7 @@
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1><%= @user.name %></h1>
         <h3><%= @user.email %></h3>
+        <h3><%= @user.show_user_name_length %></h3>
         <p class="lead text-muted"><h3>Welcome to my dreams.</h3></p>
         <p>
           <% if current_user.id == @user.id %>
@@ -22,7 +23,8 @@
           <% @dreams.each do |dream| %>
             <div class="container card">
               <p class="card-text"><h4><%= dream.title %></h4></p>
-              <p class="card-text"><%= dream.description.html_safe.first(150) %></p>
+              <p class="card-text"><h5><%= dream.show_dream_title %></h5></p>
+              <p class="card-text"><%= dream.length_show_description %></p>
               <div class="mb-4 text-center ">
                 <%= image_tag(dream.image.url(:medium)) %>
               </div>

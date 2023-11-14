@@ -22,6 +22,7 @@
             <span>Interval:</span>   <%= @dream.interval %><br>
             <span>User name:</span>   <%= @dream.user.name %><br>
             <span>Category:</span>   <%= @dream.category.name %><br>
+            <span>Tag name:</span>   <%= @dream.tags.pluck(:name).join(', ') %><br>
           </p>
           <div class="btn-group" role="group" aria-label="Простой пример">
             <%= link_to 'All dreams', dreams_path, class: 'btn btn-primary' %>
@@ -71,8 +72,6 @@
                 <% end %>
               </div>
             </div>
-            </br>
-            </br>
           <% end %>
           <div class="container text-end">
             <div class="row">
@@ -89,7 +88,7 @@
                 <% end %>
                 <hr>
                   <%= link_to 'Back', user_path(current_user), class: 'btn btn-primary' %></td>
-                </hr>
+                <hr>
               </div>
               <div class="col"></div>
             </div>
@@ -98,5 +97,5 @@
 
       <div class="col"></div>
     </div>
-  <div/>
+  </div>
 </main>

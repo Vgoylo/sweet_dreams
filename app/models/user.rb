@@ -12,5 +12,16 @@ class User < ApplicationRecord
   has_many :comments
   has_many :replies
 
-  paginates_per 15
+  # after_commit :user_saved_to_db
+  # after_update_commit :user_saved_to_db
+  # after_create_commit :user_saved_to_db
+  after_save :user_saved_to_db
+
+  # paginates_per 15
+
+  private
+
+  def user_saved_to_db
+    puts 'User was success save to database'
+  end
 end

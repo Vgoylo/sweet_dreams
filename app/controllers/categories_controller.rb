@@ -1,12 +1,19 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
+  include Sort
+
   before_action :authenticate_user!
+  before_action :sort_column, :sort_direction, only: %i[index]
+  before_action :category_find, only: %i[show edit update destroy]
+
   helper_method :sort_column, :sort_direction
 
   def index
     authorize Category
-    @categories = Category.all.page(params[:page]).order("#{sort_column} #{sort_direction}").page params[:page]
+
+    @categories = CategoriesListQuery.all_categories
+    @categories = paginate_array_page
   end
 
   def new
@@ -28,17 +35,16 @@ class CategoriesController < ApplicationController
 
   def show
     authorize Category
-    @category = Category.find(params[:id])
+
+    rendor json: @category
   end
 
   def edit
     authorize Category
-    @category = Category.find(params[:id])
   end
 
   def update
     authorize Category
-    @category = Category.find(params[:id])
 
     if @category.update(category_params)
       flash[:success] = 'Success'
@@ -51,7 +57,6 @@ class CategoriesController < ApplicationController
 
   def destroy
     authorize Category
-    @category = Category.find(params[:id])
 
     if @category.destroy
       flash[:success] = 'Success'
@@ -63,19 +68,19 @@ class CategoriesController < ApplicationController
 
   private
 
+  def paginate_array_page
+    Kaminari.paginate_array(@categories).page(params[:page]).per(10)
+  end
+
+  def category_find
+    @category = Category.find(params[:id])
+  end
+
   def category_params
     params.require(:category).permit(:name)
   end
 
   def sortable_columns
     %w[name].freeze
-  end
-
-  def sort_column
-    sortable_columns.include?(params[:column]) ? params[:column] : 'name'
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end

@@ -1,27 +1,31 @@
 # frozen_string_literal: true
 
 class DreamsController < ApplicationController
+  include Sort
+
   helper_method :sort_column, :sort_direction
+  before_action :sort_column, :sort_direction, only: %i[index]
+  before_action :dream_find, only: %i[show edit update destroy]
 
   def index
     authorize Dream
     @dreams =
       if current_user.nil?
-        Dream.where(private: false)
+        DreamsListQuery.dreams_not_private
       elsif params[:private]
-        Dream.by_user(current_user.id).where(private: params[:private])
+        DreamsListQuery.dreams_private(current_user, params)
       elsif params[:user_id]
-        Dream.by_user(params[:user_id])
+        DreamsListQuery.dreams_by_user_id(params)
       else
-        Dream.by_user(current_user.id).or(Dream.where(private: false))
+        DreamsListQuery.dreams_by_user_id_false(current_user)
       end.order("#{sort_column} #{sort_direction}")
 
-    if params[:search]
-      search = params[:search]
-      @dreams = @dreams.where('title like ? or description like ?', "%#{search}%", "%#{search}%")
-    end
+      if params[:search]
+        search = params[:search]
+        @dreams = @dreams.where('title like ? or description like ?', "%#{search}%", "%#{search}%")
+      end
 
-    @dreams = @dreams.page params[:page]
+    @dreams = paginate_array_page
   end
 
   def new
@@ -31,53 +35,49 @@ class DreamsController < ApplicationController
 
   def create
     authorize Dream
-    @dream = Dream.new(dream_params)
-    @dream.user = current_user
-    @dream.tag_ids = params[:post][:tag_ids]
-    if @dream.save
-      flash[:success] = 'Success'
-      redirect_to user_path(current_user)
-    else
-      flash[:error] = 'Error'
-      render :new
-    end
+    @dream = Dreams::Create.call(dream_params, current_user, params[:post])
+
+    flash_success
+  rescue StandardError
+    flash[:error] = 'Error'
+    render :new
   end
 
   def show
     authorize Dream
-    @dream = Dream.find(params[:id])
+    find_dream_by_id
     @comment = Comment.new(dream: @dream, user_id: current_user.id)
     @dream_comments = @dream.comments.order(created_at: :desc)
     @reply = Reply.new(comment: @comment, user_id: current_user.id)
     @comment_replies = Reply.all
+    @dream = Dreams::ShowPresenter.new(@dream)
   end
 
   def edit
-    @dream = Dream.find(params[:id])
     authorize @dream
   end
 
   def update
-    @dream = Dream.find(params[:id])
     authorize @dream
-    @dream.user = current_user
-    @dream.tag_ids = params[:post][:tag_ids]
-    if @dream.update(dream_params)
-      flash[:success] = 'Success'
-      redirect_to user_path(current_user)
-    else
-      flash[:error] = 'Error'
-      render :edit
-    end
+
+    @dream = Dreams::Update.call(params: dream_params, user: current_user,
+                                 post_params: params[:post], dream: @dream)
+    flash_success
+  rescue StandardError
+    flash[:error] = 'Error'
+    render :edit
   end
 
   def destroy
-    @dream = Dream.find(params[:id])
     authorize @dream
+<<<<<<< Updated upstream
+=======
+    DeleteDreamsSidekiqJob.perform_at(1.minutes.from_now, current_user.id,
+                                      Time.zone.parse('13-04-2022'), Time.zone.now)
+>>>>>>> Stashed changes
 
     if @dream.destroy!
-      flash[:success] = 'Success'
-      redirect_to user_path(current_user)
+      flash_success
     else
       flash[:error] = 'Error'
     end
@@ -85,9 +85,17 @@ class DreamsController < ApplicationController
 
   private
 
+  def paginate_array_page
+    Kaminari.paginate_array(@dreams).page(params[:page]).per(20)
+  end
+
+  def dream_find
+    @dream = Dream.find(params[:id])
+  end
+
   def dream_params
-    params.require(:dream).permit(:title, :description, :dream_date, :interval, :private, :image, :category_id,
-                                  :search, tag_ids: [])
+    params.require(:dream).permit(:title, :description, :dream_date, :interval,
+                                  :private, :image, :category_id, :search, tag_ids: [])
   end
 
   def sortable_columns
@@ -98,7 +106,8 @@ class DreamsController < ApplicationController
     sortable_columns.include?(params[:column]) ? params[:column] : 'title'
   end
 
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+  def flash_success
+    flash[:success] = 'Success'
+    redirect_to user_path(current_user)
   end
 end

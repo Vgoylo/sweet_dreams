@@ -15,6 +15,9 @@
         <th scope="col">
           <%= sort_link 'name' %>
         </th>
+         <th scope="col">Block/Unblock</th>
+         <th scope="col">Destroy</th>
+         <th scope="col">Length name</th>
       </tr>
     </thead>
     <tbody class="table table-striped">
@@ -29,6 +32,7 @@
                 <td><%= link_to 'Block', update_block_status_admin_user_path(user), method: :patch %></td>
               <% end %>
               <td><%= link_to 'Destroy', user_path(user), method: :delete %></td>
+              <td><%= user.length_user_name %></td>
             </tr>
             <% end %>
     </tbody>
@@ -39,4 +43,4 @@
               pagination_class: "pagination-sm flex-wrap justify-content-center",
               nav_class: "d-inline-block" %>
   </div>
-<% end %> 
+<% end %>
