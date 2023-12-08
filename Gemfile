@@ -64,5 +64,7 @@ gem 'rails_bootstrap_sortable'
 gem 'rails-i18n', '~> 6'
 gem 'rubocop'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
+gem 'dotenv-rails'
+gem 'httparty', '~> 0.21.0'
+gem 'responders'
 gem 'sidekiq'

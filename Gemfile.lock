@@ -92,11 +92,18 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.10.0)
     execjs (2.8.1)
     ffi (1.15.4)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.1)
@@ -138,6 +145,7 @@ GEM
     momentjs-rails (2.20.1)
       railties (>= 3.1)
     msgpack (1.4.2)
+    multi_xml (0.6.0)
     nio4r (2.5.8)
     nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
@@ -209,9 +217,9 @@ GEM
       ffi (~> 1.0)
     redis (4.6.0)
     regexp_parser (2.2.0)
-    responders (3.0.1)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
+    responders (3.1.1)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     rexml (3.2.5)
     rubocop (1.24.1)
       parallel (~> 1.10)
@@ -288,6 +296,8 @@ DEPENDENCIES
   byebug
   ckeditor
   devise
+  dotenv-rails
+  httparty (~> 0.21.0)
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
   kaminari
@@ -304,6 +314,7 @@ DEPENDENCIES
   rails (~> 6.1.4, >= 6.1.4.1)
   rails-i18n (~> 6)
   rails_bootstrap_sortable
+  responders
   rubocop
   sass-rails (>= 6)
   sidekiq
